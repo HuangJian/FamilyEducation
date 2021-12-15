@@ -35,10 +35,13 @@ function make() {
   cnchar.draw(char, {        
     el: '#char',        
     type: cnchar.draw.TYPE.STROKE,
+    style: {
+      length: 50,
+    },
     line: {
       lineStraight: false,
       lineCross: false,
-    }
+    },
   })
 
   setTimeout(() => {
@@ -51,13 +54,21 @@ function make() {
  * 布局汉字描红区域。
  */
 function layoutChar() {
-  $$('#char > div > svg:first-child').forEach(char => {
+  $$('#char > div > svg:first-child').forEach((char, idx) => {
     const clone = char.cloneNode(true)
     // 第一笔原来为红色，显示其为灰色，让娃在上面描写完整字样
     clone.querySelector('path:first-child').setAttribute('style', 'fill: rgb(221, 221, 221);')
 
     const container = htmlToElement('<div class="write-them-down flex"></div>')
-    Array.from({ length: 10 }, () => container.appendChild(clone.cloneNode(true)))
+    const id = `char${idx}`
+    clone.firstChild.setAttribute('id', id)
+    container.appendChild(clone)
+
+    Array.from({ length: 9 }, () => {
+      const item = clone.cloneNode(false)
+      item.innerHTML = `<use href="#${id}"/>`
+      container.appendChild(item)
+    })
     char.parentElement.insertAdjacentElement('afterend', container)
 
     char.parentElement.classList.add('flex', 'scale-[0.6]', 'origin-left')
