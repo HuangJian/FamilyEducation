@@ -13,12 +13,11 @@ function $$(selector) {
  */
   function htmlToElement(html) {
   var template = document.createElement('template');
-  template.innerHTML =  html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html.trim(); // Never return a text node of whitespace as the result
   return template.content.firstChild;
 }
 
 window.onerror = function(message, source, lineno, colno, error) { 
-  console.log(message, source, error)
   $('.error').classList.remove('hidden')
   $('#message').innerText = message || JSON.stringify(error)
 }
@@ -27,6 +26,7 @@ function closeErrorMessage() {
   $('.error').classList.add('hidden')
 }
 
+const charSize = 42
 /**
  * 生成练习题。
  */
@@ -36,7 +36,7 @@ function make() {
     el: '#char',        
     type: cnchar.draw.TYPE.STROKE,
     style: {
-      length: 50,
+      length: charSize,
     },
     line: {
       lineStraight: false,
@@ -50,16 +50,32 @@ function make() {
   
 }
 
+function copyHtmlSource() {
+  const source = `<section id="output">${$('#output').innerHTML}</section>`
+  navigator.clipboard.writeText(source).then(
+    function() {
+      console.log("Async: Copying to clipboard was successful!");
+    },
+    function(err) {
+      console.error("Async: Could not copy text: ", err);
+    }
+  );
+}
+
 /**
  * 布局汉字描红区域。
  */
 function layoutChar() {
+  const emptyBox = htmlToElement(`
+    <svg width="${charSize}" height="${charSize}">
+    </svg>
+  `)
   $$('#char > div > svg:first-child').forEach((char, idx) => {
     const clone = char.cloneNode(true)
     // 第一笔原来为红色，显示其为灰色，让娃在上面描写完整字样
     clone.querySelector('path:first-child').setAttribute('style', 'fill: rgb(221, 221, 221);')
 
-    const container = htmlToElement('<div class="write-them-down flex"></div>')
+    const container = htmlToElement('<div class="write-them-down flex w-100 justify-between"></div>')
     const id = `char${idx}`
     clone.firstChild.setAttribute('id', id)
     container.appendChild(clone)
@@ -70,8 +86,11 @@ function layoutChar() {
       container.appendChild(item)
     })
     char.parentElement.insertAdjacentElement('afterend', container)
+    char.parentElement.classList.add('flex', 'scale-[0.6]', 'origin-left', 'sample')
 
-    char.parentElement.classList.add('flex', 'scale-[0.6]', 'origin-left')
+    Array.from({ length: 5 }, () => {
+      container.appendChild(emptyBox.cloneNode(false))
+    })
   })
 }
 
