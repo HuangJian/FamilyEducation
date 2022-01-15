@@ -32,11 +32,13 @@ const charSize = 42
  */
 function make() {
   const char = $('#char-to-practise').value || '请输入汉字'
+  // https://theajack.gitee.io/cnchar/doc/draw.html#_2-%E4%BD%BF%E7%94%A8
   cnchar.draw(char, {        
     el: '#char',        
     type: cnchar.draw.TYPE.STROKE,
     style: {
       length: charSize,
+      outlineColor: '#999'
     },
     line: {
       lineStraight: false,
@@ -73,7 +75,7 @@ function layoutChar() {
   $$('#char > div > svg:first-child').forEach((char, idx) => {
     const clone = char.cloneNode(true)
     // 第一笔原来为红色，显示其为灰色，让娃在上面描写完整字样
-    clone.querySelector('path:first-child').setAttribute('style', 'fill: rgb(221, 221, 221);')
+    clone.querySelector('path:first-child').setAttribute('style', 'fill: rgb(153, 153, 153);')
 
     const container = htmlToElement('<div class="write-them-down flex w-100 justify-between"></div>')
     const id = `char${idx}`
