@@ -26,14 +26,14 @@
       <div class="w-full">
         <label class="block mb-1" for="char-to-practise">汉字：</label>
         <input class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline" 
-               type="text" id="char-to-practise" value="一二三四五六七八九十"/>
+               type="text" id="char-to-practise" value="人大小多少"/>
       </div>
     </div>
     <div class="flex flex-wrap">
       <div class="w-full">
         <label class="block mb-1" for="calculations">算式：</label>
-        <textarea id="calculations" 
-                  class="w-full h-16 px-3 py-2 text-base text-gray-700 placeholder-gray-600 
+        <textarea id="calculations" rows="8"
+                  class="w-full h-52 px-3 py-2 text-base text-gray-700 placeholder-gray-600 
                          border rounded-lg focus:shadow-outline"></textarea>
       </div>
     </div>
@@ -50,8 +50,9 @@
 
   <hr>
   <section id="output">
+    <div id="math" class="flex flex-col max-w-2xl mx-auto"></div>
+    <hr class="my-3">
     <div id="char" class="flex flex-col max-w-2xl mx-auto"></div>
-    <div class="math"></div>
   </section>
 </body>
 
