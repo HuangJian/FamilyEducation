@@ -103,6 +103,11 @@ function copyHtmlSource() {
   );
 }
 
+function showStrokeNames() {
+  const char = $('#char-to-practise').value
+  const arr = cnchar.stroke(char, 'order', 'name')
+  $('#strokes').innerHTML = arr.map((it, idx) => char[idx] + ': ' + it.join(', ')).join('<br>')
+}
 /**
  * 布局汉字描红区域。
  */
