@@ -11,7 +11,7 @@ function $$(selector) {
  * @param {String} HTML representing a single element
  * @return {Element}
  */
-  function htmlToElement(html) {
+function htmlToElement(html) {
   var template = document.createElement('template');
   template.innerHTML = html.trim(); // Never return a text node of whitespace as the result
   return template.content.firstChild;
@@ -32,16 +32,15 @@ function make() {
 }
 
 $('#calculations').value = `
-1+1=?,1+2=?,1+3=?,1+4=?
-2+2=?,2+4=?,2+6=?,2+8=?
-3+3=?,3+4=?,3+5=?,3+6=?
-5-4=?,5-3=?,5-2=?,5-1=?
-4-4=?,4-3=?,4-2=?,4-1=?
+3+5=?,4+4=?,7+2=?
+9+3=?,5+8=?,7+7=?
+11-4=?,12-5=?,15-10=?
+14-7=?,13-4=?,16-2=?
+?=3+7,?=8-4,?=5+6
 ---
-8+3=?,2+9=?,7+4=?,6+6=?
-6+?=9,?+2=10,7-?=3,?-5=5
----
-3+4+2=?,5+4-6=?
+7+8-8=?,5+8+2=?
+3+?+2=11,8-?-2=2
+3+?=9-2,6-?=7-4
 `.trim()
 
 function makeMaths() {
@@ -49,15 +48,21 @@ function makeMaths() {
 
   const html = lines.map(line => {
     if (line.startsWith('---')) {
-      return '<hr class="mt-4">'
+      return '<hr class="mt-2">'
     }
     
     const items = line.split(',')
     const inner = items.map(item => {
-      const question = item.replaceAll(/\?/g, `<span class="box"></span>`)
-      return `<div class="flex-1">${question}</div>`
+      const arr = item.match(/(\d+)|\+|-|\*|\/|=|\?/g)
+      const question = arr.map(it => {
+        if (it === '?') {
+          return `<span class="box"></span>`
+        }
+        return `<span>${it}</span>`
+      }).join('')
+      return `<div class="question flex-1">${question}</div>`
     }).join('\n')
-    return `<div class="flex origin-left mt-4">${inner}</div>`
+    return `<div class="flex origin-left mt-2">${inner}</div>`
   }).join('\n')
 
   $('#math').innerHTML = html
@@ -132,7 +137,7 @@ function layoutChar() {
       container.appendChild(item)
     })
     char.parentElement.insertAdjacentElement('afterend', container)
-    char.parentElement.classList.add('flex', 'scale-[0.6]', 'origin-left', 'sample')
+    char.parentElement.classList.add('flex', 'scale-[0.8]', 'origin-left', 'sample')
 
     Array.from({ length: 5 }, () => {
       container.appendChild(emptyBox.cloneNode(false))
