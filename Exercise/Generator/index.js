@@ -44,7 +44,7 @@ $('#calculations').value = `
 `.trim()
 
 function makeMaths() {
-  const lines = ($('#calculations').value || '').split('\n')
+  const lines = ($('#calculations').value || '[]').split('\n') 
 
   const html = lines.map(line => {
     if (line.startsWith('---')) {
@@ -53,7 +53,7 @@ function makeMaths() {
     
     const items = line.split(',')
     const inner = items.map(item => {
-      const arr = item.match(/(\d+)|\+|-|\*|\/|=|\?/g)
+      const arr = item.match(/(\d+)|\+|-|\*|\/|=|\?/g) || []
       const question = arr.map(it => {
         if (it === '?') {
           return `<span class="box"></span>`
@@ -68,7 +68,7 @@ function makeMaths() {
   $('#math').innerHTML = html
 }
 
-const charSize = 42
+const charSize = 54
 /**
  * 生成练习题。
  */
@@ -131,13 +131,13 @@ function layoutChar() {
     clone.firstChild.setAttribute('id', id)
     container.appendChild(clone)
 
-    Array.from({ length: 9 }, () => {
+    Array.from({ length: 5 }, () => {
       const item = clone.cloneNode(false)
       item.innerHTML = `<use href="#${id}"/>`
       container.appendChild(item)
     })
     char.parentElement.insertAdjacentElement('afterend', container)
-    char.parentElement.classList.add('flex', 'scale-[0.8]', 'origin-left', 'sample')
+    char.parentElement.classList.add('flex', 'scale-[0.7]', 'origin-left', 'sample')
 
     Array.from({ length: 5 }, () => {
       container.appendChild(emptyBox.cloneNode(false))
