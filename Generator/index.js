@@ -92,7 +92,8 @@ function makeChars() {
 
   setTimeout(() => {
     layoutChar()
-  }, 1000)
+    simplifyCharSvg()
+  }, 2000)
   
 }
 
@@ -121,10 +122,8 @@ function showStrokeNames() {
  * 布局汉字描红区域。
  */
 function layoutChar() {
-  const emptyBox = htmlToElement(`
-    <svg width="${charSize}" height="${charSize}">
-    </svg>
-  `)
+  const emptyBox = htmlToElement(`<svg></svg>`)
+
   $$('#char > div > svg:first-child').forEach((char, idx) => {
     const clone = char.cloneNode(true)
     // 第一笔原来为红色，显示其为灰色，让娃在上面描写完整字样
@@ -147,5 +146,19 @@ function layoutChar() {
       container.appendChild(emptyBox.cloneNode(false))
     })
   })
+}
+
+/**
+ * 简化汉字svg内容，减少代码量，加快浏览器加载速度。
+ */
+function simplifyCharSvg() {
+  const charContainer = $('#char')
+  charContainer.innerHTML = charContainer.innerHTML
+    .replaceAll(/width="\d+" height="\d+"/g, '')
+    .replaceAll(/style="border: .+?; background-color: .+?;"/g, '')
+  
+  $$('.sample path')
+    .filter(it => it.outerHTML.includes('fill: rgb(153, 153, 153)'))
+    .forEach(it => it.remove())
 }
 
