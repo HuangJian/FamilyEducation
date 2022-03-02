@@ -97,15 +97,19 @@ function makeChars() {
 }
 
 function copyHtmlSource() {
-  const source = `<section id="output">${$('#output').innerHTML}</section>`
-  navigator.clipboard.writeText(source).then(
-    function() {
-      console.log("Async: Copying to clipboard was successful!");
-    },
-    function(err) {
-      console.error("Async: Could not copy text: ", err);
-    }
-  );
+  const styles = $('#globalStyle').innerHTML
+  const madeHtml = $('#output').innerHTML
+  const source = `
+    <html>
+      <head>
+        <script src="https://cdn.tailwindcss.com/3.0.12"></script>
+      </head>
+      <body>
+        <section id="output">${madeHtml}</section>
+        <style>${styles}</style>
+      </body>
+    </html>`
+  navigator.clipboard.writeText(source)
 }
 
 function showStrokeNames() {

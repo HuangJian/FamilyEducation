@@ -7,7 +7,6 @@
   <title>做题家 - 启蒙</title>
   <link rel="shortcut icon" type="image/ico" href="../assets/favicon.ico"/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 
 <body>
@@ -65,4 +64,53 @@
 <script src="https://cdn.jsdelivr.net/npm/cnchar-order/cnchar.order.min.js" crossorigin="anonymous"></script>
 <script src="./index.js"></script>
 
+<style id="globalStyle">
+  #char > div > svg {
+      display: inline-block;
+      /* https://bloggerpilot.com/en/tools/svg-to-css/ */
+      background-image: url("data:image/svg+xml,%3Csvg width='59' height='59' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l59 59M0 59L59 0M0 30h59M30 0v59' stroke-dasharray='4 4' stroke='%23aaa' fill='none' /%3E%3C/svg%3E");      background-size: contain;
+      border: 1px solid #aaa;
+  }
+
+  #math {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 24px;
+      color: #666;
+  }
+
+  #math .question {
+      text-align: center;
+  }
+  #math .question:first-child {
+      text-align: left;
+  }
+  #math .question:last-child {
+      text-align: right;
+  }
+
+  #math .question > span {
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+      width: 36px;
+      height: 36px;
+  }
+
+  #math .box {
+      border: 1px solid #aaa;
+      border-radius: 2px;
+  }
+
+  .sample > svg + svg {
+      margin-left: 4px;
+  }
+
+  .write-them-down + .sample {
+      margin-top: 8px;
+  }
+  .write-them-down:not(:last-child) {
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+  }
+</style>
 </html>
