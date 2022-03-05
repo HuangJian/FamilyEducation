@@ -154,11 +154,23 @@ function layoutChar() {
 function simplifyCharSvg() {
   const charContainer = $('#char')
   charContainer.innerHTML = charContainer.innerHTML
-    .replaceAll(/width="\d+" height="\d+"/g, '')
+    .replaceAll(/width=.+? height=.+? /g, '')
     .replaceAll(/style="border: .+?; background-color: .+?;"/g, '')
   
   $$('.sample path')
     .filter(it => it.outerHTML.includes('fill: rgb(153, 153, 153)'))
     .forEach(it => it.remove())
+  
+  $$('.sample').forEach((charContainer, idxChar) => {
+    charContainer.querySelectorAll('svg > g').forEach((g, idxStroke) => {
+      g.setAttribute('id', `stroke-${idxChar}-${idxStroke}`)
+      // 精简svg代码：只保留最后两笔，其余笔画引用之前的样例
+      if (idxStroke > 1) {
+        g.querySelectorAll('path:not(:nth-last-child(-n+2))').forEach(it => it.remove())
+        const refs =  Array.from({ length: idxStroke - 1 }, (_, i) => `<use href="#stroke-${idxChar}-${i + 1}"/>`).join('\n')
+        g.insertAdjacentHTML('beforebegin', refs)
+      }
+    })
+  })
 }
 
