@@ -32,19 +32,21 @@ function make() {
 }
 
 $('#calculations').value = `
-3+5=?,4+4=?,7+2=?
-9+3=?,5+8=?,7+7=?
-11-4=?,12-5=?,15-10=?
-14-7=?,13-4=?,16-2=?
-?=3+7,?=8-4,?=5+6
+4+?=10,9+?=18,7+?=22
+?-8=2,?-12=12,?-13=8
+20-?=14,36-?=28,44-?=12
+16+7=?,75+28=?,105-25=?
+1*1=?,2*1=?,3*1=?
 ---
-7+8-8=?,5+8+2=?
-3+?+2=11,8-?-2=2
-3+?=9-2,6-?=7-4
+?+23=35-7,9+?=11+18
+6+?+5=30,18+19+20+21=?
+24+?=50-?,21+17+35+24=?
+23-?=32-?,42-28+33-39=?
 `.trim()
 
 function makeMaths() {
-  const lines = ($('#calculations').value || '[]').split('\n') 
+  const content = $('#calculations').value
+  const lines = (content || '[]').split('\n') 
 
   const html = lines.map(line => {
     if (line.startsWith('---')) {
@@ -65,7 +67,8 @@ function makeMaths() {
     return `<div class="flex origin-left mt-2">${inner}</div>`
   }).join('\n')
 
-  $('#math').innerHTML = html
+  $('#math').innerHTML = `<div class="hidden">${content}</div>\n` 
+    + html.replaceAll(/\*/g, '&times;')
 }
 
 const charSize = 54
