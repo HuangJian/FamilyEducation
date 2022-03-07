@@ -96,6 +96,7 @@ function makeChars() {
   setTimeout(() => {
     layoutChar()
     simplifyCharSvg()
+    $('#char').prepend(htmlToElement(`<div class="hidden">${char}</div>`))
   }, 2000)
   
 }
