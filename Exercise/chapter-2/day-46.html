@@ -420,7 +420,7 @@
     当前笔画：红色 - current: rgba(187,  68,  68, 1);
     之前笔画：黑色 - past:    rgba( 85,  85,  85, 1);
     后继笔画：透明 - next:    rgba(any, any, any, 0);
-    描红笔画：灰色 - sample:  rgba(185, 185, 185, 1);
+    描红笔画：灰色 - gray:    rgba(185, 185, 185, 1);
     */
       --stroke-color: rgba(calc(85 * var(--is-past) + 187 * var(--is-current) + 68 * var(--is-gray)),
           calc(85 * var(--is-past) + 68 * var(--is-current) + 68 * var(--is-gray)),
@@ -495,95 +495,17 @@
       border-bottom: 1px solid #e5e7eb;
     }
   </style>
-  <style>
-    .sample>svg:nth-child(1) {
-      --char-index: 1;
-    }
+  <script>
+    const injectedStyles = Array.from({ length: 100 })
+      .map((_, idx) => `
+      .sample > svg:nth-child(${idx + 1}) { --char-index: ${idx + 1}; }
+      path:nth-child(${idx + 1}) { --stroke-index: ${idx + 1}; }
+      `
+      ).join('\n')
 
-    path:nth-child(1) {
-      --stroke-index: 1;
-    }
-
-    .sample>svg:nth-child(2) {
-      --char-index: 2;
-    }
-
-    path:nth-child(2) {
-      --stroke-index: 2;
-    }
-
-    .sample>svg:nth-child(3) {
-      --char-index: 3;
-    }
-
-    path:nth-child(3) {
-      --stroke-index: 3;
-    }
-
-    .sample>svg:nth-child(4) {
-      --char-index: 4;
-    }
-
-    path:nth-child(4) {
-      --stroke-index: 4;
-    }
-
-    .sample>svg:nth-child(5) {
-      --char-index: 5;
-    }
-
-    path:nth-child(5) {
-      --stroke-index: 5;
-    }
-
-    .sample>svg:nth-child(6) {
-      --char-index: 6;
-    }
-
-    path:nth-child(6) {
-      --stroke-index: 6;
-    }
-
-    .sample>svg:nth-child(7) {
-      --char-index: 7;
-    }
-
-    path:nth-child(7) {
-      --stroke-index: 7;
-    }
-
-    .sample>svg:nth-child(8) {
-      --char-index: 8;
-    }
-
-    path:nth-child(8) {
-      --stroke-index: 8;
-    }
-
-    .sample>svg:nth-child(9) {
-      --char-index: 9;
-    }
-
-    path:nth-child(9) {
-      --stroke-index: 9;
-    }
-
-    .sample>svg:nth-child(10) {
-      --char-index: 10;
-    }
-
-    path:nth-child(10) {
-      --stroke-index: 10;
-    }
-
-    .sample>svg:nth-child(11) {
-      --char-index: 11;
-    }
-
-    path:nth-child(11) {
-      --stroke-index: 11;
-    }
-  </style>
+    document.querySelector('#injected')?.remove()
+    document.head.insertAdjacentHTML('beforeend', `<style id="injected">${injectedStyles}</style>`) 
+  </script>
 </body>
 
 </html>

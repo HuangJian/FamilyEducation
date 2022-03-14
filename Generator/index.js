@@ -112,7 +112,7 @@ function copyHtmlSource() {
       <body>
         <section id="output">${madeHtml}</section>
         <style>${styles}</style>
-        <style>${injectedStyles}</style>
+        <script>${scriptToInjectStyles}</script>
       </body>
     </html>`
   navigator.clipboard.writeText(source)
@@ -151,7 +151,17 @@ function layoutChar() {
   })
 }
 
-let injectedStyles = ''
+const scriptToInjectStyles = `
+  const injectedStyles = Array.from({ length: 100 })
+    .map((_, idx) => \`
+      .sample > svg:nth-child(\${idx + 1}) { --char-index: \${idx + 1}; }
+      path:nth-child(\${idx + 1}) { --stroke-index: \${idx + 1}; }
+      \`
+    ).join('\\n')
+
+  document.querySelector('#injected')?.remove()
+  document.head.insertAdjacentHTML('beforeend', \`<style id="injected">\${injectedStyles}</style>\`) 
+`;
 
 /**
  * 简化汉字svg内容，减少代码量，加快浏览器加载速度。
@@ -162,28 +172,13 @@ function simplifyCharSvg() {
     .replaceAll(/width=.+? height=.+? /g, '')
     .replaceAll(/style=".+?;"/g, '')
 
-  let maxStrokesCount = 0
   $$('.sample').forEach((sample, idx) => {
-    const strokesCount = sample.querySelectorAll('svg').length
-    maxStrokesCount = Math.max(maxStrokesCount, strokesCount)
-
     sample.innerHTML = Array.from(
-      { length: strokesCount }, 
+      { length: sample.querySelectorAll('svg').length }, 
       () => `<svg><use href="#char${idx}"/></svg>`
     ).join('\n')
   })
 
-  injectedStyles = Array.from({ length: maxStrokesCount })
-    .map((_, idx) => `
-      .sample > svg:nth-child(${idx + 1}) {
-        --char-index: ${idx + 1};
-      }
-      path:nth-child(${idx + 1}) {
-        --stroke-index: ${idx + 1};
-      }`
-    ).join('\n')
-
-  $('#injected')?.remove()
-  document.head.insertAdjacentHTML('beforeend', `<style id="injected">${injectedStyles}</style>`)
+  eval(scriptToInjectStyles)
 }
 
