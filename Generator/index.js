@@ -112,6 +112,7 @@ function copyHtmlSource() {
       <body>
         <section id="output">${madeHtml}</section>
         <style>${styles}</style>
+        <style>${injectedStyles}</style>
       </body>
     </html>`
   navigator.clipboard.writeText(source)
@@ -130,8 +131,6 @@ function layoutChar() {
 
   $$('#char > div > svg:first-child').forEach((char, idx) => {
     const clone = char.cloneNode(true)
-    // 第一笔原来为红色，显示其为灰色，让娃在上面描写完整字样
-    clone.querySelector('path:first-child').setAttribute('style', 'fill: rgb(153, 153, 153);')
 
     const container = htmlToElement('<div class="write-them-down flex w-100 justify-between"></div>')
     const id = `char${idx}`
@@ -152,6 +151,8 @@ function layoutChar() {
   })
 }
 
+let injectedStyles = ''
+
 /**
  * 简化汉字svg内容，减少代码量，加快浏览器加载速度。
  */
@@ -159,22 +160,30 @@ function simplifyCharSvg() {
   const charContainer = $('#char')
   charContainer.innerHTML = charContainer.innerHTML
     .replaceAll(/width=.+? height=.+? /g, '')
-    .replaceAll(/style="border: .+?; background-color: .+?;"/g, '')
-  
-  $$('.sample path')
-    .filter(it => it.outerHTML.includes('fill: rgb(153, 153, 153)'))
-    .forEach(it => it.remove())
-  
-  $$('.sample').forEach((charContainer, idxChar) => {
-    charContainer.querySelectorAll('svg > g').forEach((g, idxStroke) => {
-      g.setAttribute('id', `stroke-${idxChar}-${idxStroke}`)
-      // 精简svg代码：只保留最后两笔，其余笔画引用之前的样例
-      if (idxStroke > 1) {
-        g.querySelectorAll('path:not(:nth-last-child(-n+2))').forEach(it => it.remove())
-        const refs =  Array.from({ length: idxStroke - 1 }, (_, i) => `<use href="#stroke-${idxChar}-${i + 1}"/>`).join('\n')
-        g.insertAdjacentHTML('beforebegin', refs)
-      }
-    })
+    .replaceAll(/style=".+?;"/g, '')
+
+  let maxStrokesCount = 0
+  $$('.sample').forEach((sample, idx) => {
+    const strokesCount = sample.querySelectorAll('svg').length
+    maxStrokesCount = Math.max(maxStrokesCount, strokesCount)
+
+    sample.innerHTML = Array.from(
+      { length: strokesCount }, 
+      () => `<svg><use href="#char${idx}"/></svg>`
+    ).join('\n')
   })
+
+  injectedStyles = Array.from({ length: maxStrokesCount })
+    .map((_, idx) => `
+      .sample > svg:nth-child(${idx + 1}) {
+        --char-index: ${idx + 1};
+      }
+      path:nth-child(${idx + 1}) {
+        --stroke-index: ${idx + 1};
+      }`
+    ).join('\n')
+
+  $('#injected')?.remove()
+  document.head.insertAdjacentHTML('beforeend', `<style id="injected">${injectedStyles}</style>`)
 }
 

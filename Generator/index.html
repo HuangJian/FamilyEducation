@@ -65,6 +65,49 @@
 <script src="./index.js"></script>
 
 <style id="globalStyle">
+  path {
+    /* 仅当 --char-index === --stroke-index 时，可得 1（true），否则 0 （false）*/
+    --is-current: clamp(
+      0,         
+      calc(1 - (var(--char-index) - var(--stroke-index)) * (var(--char-index) - var(--stroke-index))),
+      1);
+    /* 仅当 --char-index > --stroke-index 时，可得 1（true），否则 0 （false）*/
+    --is-past: clamp(
+      0, 
+      calc(var(--char-index) - var(--stroke-index)),
+      1);
+    /* 仅当 --char-index < --stroke-index 时，可得 1（true），否则 0 （false）*/
+    --is-next: clamp(
+      0, 
+      calc(var(--stroke-index) - var(--char-index)),
+      1);
+
+    /* 设计不同场景下笔画填色
+    当前笔画：红色 - current: rgba(187,  68,  68, 1);
+    之前笔画：黑色 - past:    rgba( 85,  85,  85, 1);
+    后继笔画：透明 - next:    rgba(any, any, any, 0);
+    描红笔画：灰色 - gray:    rgba(185, 185, 185, 1);
+    */
+    --stroke-color: rgba(
+      calc(85 * var(--is-past) + 187 * var(--is-current) + 68 * var(--is-gray)),
+      calc(85 * var(--is-past) + 68  * var(--is-current) + 68 * var(--is-gray)),
+      calc(85 * var(--is-past) + 68  * var(--is-current) + 68 * var(--is-gray)),
+      calc(1  - var(--is-next))
+    );
+
+    fill: var(--stroke-color);
+  }
+  :root {
+    --is-gray: 0; 
+    /* 初始化为 100，使描红字样必定计算出 --is-past=1，--is-current=0 --is-next=0 */
+    --char-index: 100;
+  }
+
+  .write-them-down {
+    /* 描红格子里填充灰色 */
+    --is-gray: 1;
+  }
+
   #char > div > svg {
       display: inline-block;
       /* https://bloggerpilot.com/en/tools/svg-to-css/ */
