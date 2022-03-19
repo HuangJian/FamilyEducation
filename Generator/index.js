@@ -143,7 +143,7 @@ function layoutChar() {
       container.appendChild(item)
     })
     char.parentElement.insertAdjacentElement('afterend', container)
-    char.parentElement.classList.add('flex', 'scale-[0.7]', 'origin-left', 'sample')
+    char.parentElement.classList.add('flex', 'scale-[0.7]', 'origin-left', 'w-fit', 'sample')
 
     Array.from({ length: 5 }, () => {
       container.appendChild(emptyBox.cloneNode(false))
