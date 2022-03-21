@@ -58,16 +58,16 @@ function makeMaths() {
       const arr = item.match(/(\d+)|\+|-|\*|\/|=|\?/g) || []
       const question = arr.map(it => {
         if (it === '?') {
-          return `<span class="box"></span>`
+          return `<i class="box"></i>`
         }
-        return `<span>${it}</span>`
+        return `<i>${it}</i>`
       }).join('')
-      return `<div class="question flex-1">${question}</div>`
+      return `<div class="question flex-1">\n${question}\n</div>`
     }).join('\n')
     return `<div class="flex origin-left mt-2">${inner}</div>`
   }).join('\n')
 
-  $('#math').innerHTML = `<div class="hidden">${content}</div>\n` 
+  $('#math').innerHTML = `\n<code class="hidden">\n${content}\n</code>\n` 
     + html.replaceAll(/\*/g, '&times;')
 }
 
@@ -96,7 +96,7 @@ function makeChars() {
   setTimeout(() => {
     layoutChar()
     simplifyCharSvg()
-    $('#char').prepend(htmlToElement(`<div class="hidden">${char}</div>`))
+    $('#char').prepend(htmlToElement(`<code class="hidden">${char}</code>`))
   }, 2000)
   
 }
