@@ -9,50 +9,45 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-
-  <section class="error hidden relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-100 rounded-lg" role="alert">
-    <p id="message"></p>
-    <span class="absolute inset-y-0 right-0 flex items-center mr-4" onclick="closeErrorMessage()" role="button">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </span>
-  </section>
-
-  <form class="space-y-4 text-gray-700 container mx-auto">
+<body class="flex">
+  <form class="space-y-4 text-gray-700 container w-1/3 px-1">
     <div class="flex flex-wrap">
       <div class="w-full">
         <label class="block mb-1" for="char-to-practise">汉字：</label>
-        <input class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline" 
-               type="text" id="char-to-practise" value="人大小多少"/>
+        <input class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+              type="text" id="char-to-practise" value="人大小多少"/>
       </div>
       <div class="w-full" id="strokes"></div>
     </div>
     <div class="flex flex-wrap">
       <div class="w-full">
         <label class="block mb-1" for="calculations">算式：</label>
-        <textarea id="calculations" rows="8"
-                  class="w-full h-52 px-3 py-2 text-base text-gray-700 placeholder-gray-600 
-                         border rounded-lg focus:shadow-outline"></textarea>
+        <textarea id="calculations" rows="11"
+                  class="w-full h-64 px-3 py-2 text-base text-gray-700 placeholder-gray-600
+                        border rounded-lg focus:shadow-outline"></textarea>
       </div>
     </div>
 
     <div>
-      <button class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg 
+      <button class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg
                     focus:shadow-outline hover:bg-green-800"
               onclick="make()" type="button">制作习题</button>
-      <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg 
-                    focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100" 
+      <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg
+                    focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
               onclick="copyHtmlSource()" type="button">copy html source</button>
-      <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg 
-                    focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100" 
+      <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg
+                    focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
               onclick="showStrokeNames()" type="button">显示笔顺</button>
     </div>
+    <section class="error hidden relative py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-100 rounded-lg" role="alert">
+      <p id="message"></p>
+      <span class="absolute inset-y-0 right-0 flex items-center mr-4" onclick="closeErrorMessage()" role="button">
+        &times;
+      </span>
+    </section>
   </form>
 
-  <hr>
-  <section id="output">
+  <section id="output" class="w-2/3 h-screen overflow-y-scroll p-1">
     <div id="math" class="flex flex-col max-w-2xl mx-auto"></div>
     <hr class="my-2">
     <div id="char" class="flex flex-col max-w-2xl mx-auto"></div>
@@ -68,17 +63,17 @@
   path {
     /* 仅当 --char-index === --stroke-index 时，可得 1（true），否则 0 （false）*/
     --is-current: clamp(
-      0,         
+      0,
       calc(1 - (var(--char-index) - var(--stroke-index)) * (var(--char-index) - var(--stroke-index))),
       1);
     /* 仅当 --char-index > --stroke-index 时，可得 1（true），否则 0 （false）*/
     --is-past: clamp(
-      0, 
+      0,
       calc(var(--char-index) - var(--stroke-index)),
       1);
     /* 仅当 --char-index < --stroke-index 时，可得 1（true），否则 0 （false）*/
     --is-next: clamp(
-      0, 
+      0,
       calc(var(--stroke-index) - var(--char-index)),
       1);
 
@@ -98,7 +93,7 @@
     fill: var(--stroke-color);
   }
   :root {
-    --is-gray: 0; 
+    --is-gray: 0;
     /* 初始化为 100，使描红字样必定计算出 --is-past=1，--is-current=0 --is-next=0 */
     --char-index: 100;
   }
