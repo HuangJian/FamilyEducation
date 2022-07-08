@@ -6,7 +6,7 @@ function $$(selector) {
   return Array.from(document.querySelectorAll(selector))
 }
 
-/** 
+/**
  * 将 html 字符串转为 DOM 节点：https://stackoverflow.com/a/35385518/474231 。
  * @param {String} HTML representing a single element
  * @return {Element}
@@ -17,7 +17,7 @@ function htmlToElement(html) {
   return template.content.firstChild;
 }
 
-window.onerror = function(message, source, lineno, colno, error) { 
+window.onerror = function(message, source, lineno, colno, error) {
   $('.error').classList.remove('hidden')
   $('#message').innerText = message || JSON.stringify(error)
 }
@@ -27,8 +27,8 @@ function closeErrorMessage() {
 }
 
 function make() {
-  makeChars()
   makeMaths()
+  makeChars()
 }
 
 $('#calculations').value = `
@@ -46,13 +46,13 @@ $('#calculations').value = `
 
 function makeMaths() {
   const content = $('#calculations').value
-  const lines = (content || '[]').split('\n') 
+  const lines = (content || '[]').split('\n')
 
   const html = lines.map(line => {
     if (line.startsWith('---')) {
       return '<hr class="mt-2">'
     }
-    
+
     const items = line.split(',')
     const inner = items.map(item => {
       const arr = item.match(/(\d+)|\+|-|\*|\/|=|\?/g) || []
@@ -67,7 +67,7 @@ function makeMaths() {
     return `<div class="flex origin-left mt-2">${inner}</div>`
   }).join('\n')
 
-  $('#math').innerHTML = `\n<code class="hidden">\n${content}\n</code>\n` 
+  $('#math').innerHTML = `\n<code class="hidden">\n${content}\n</code>\n`
     + html.replaceAll(/\*/g, '&times;')
 }
 
@@ -80,8 +80,8 @@ function makeChars() {
   if (!char) return
 
   // https://theajack.gitee.io/cnchar/doc/draw.html#_2-%E4%BD%BF%E7%94%A8
-  cnchar.draw(char, {        
-    el: '#char',        
+  cnchar.draw(char, {
+    el: '#char',
     type: cnchar.draw.TYPE.STROKE,
     style: {
       length: charSize,
@@ -93,12 +93,22 @@ function makeChars() {
     },
   })
 
-  setTimeout(() => {
+  waitUntilCharAvailable(() => {
     layoutChar()
     simplifyCharSvg()
     $('#char').prepend(htmlToElement(`<code class="hidden">${char}</code>`))
-  }, 2000)
-  
+  })
+}
+
+async function waitUntilCharAvailable(resolve) {
+  const nCharsAvailable = $$('#char > div > svg:first-child').length
+  if (nCharsAvailable === $('#char-to-practise').value.length) {
+    console.log('all chars available')
+    return new Promise(resolve)
+  }
+
+  console.log(`${nCharsAvailable} chars available now, waiting another 1000ms`)
+  return new Promise(_ => setTimeout(() => waitUntilCharAvailable(resolve), 1000))
 }
 
 function copyHtmlSource() {
@@ -160,7 +170,7 @@ const scriptToInjectStyles = `
     ).join('\\n')
 
   document.querySelector('#injected')?.remove()
-  document.head.insertAdjacentHTML('beforeend', \`<style id="injected">\${injectedStyles}</style>\`) 
+  document.head.insertAdjacentHTML('beforeend', \`<style id="injected">\${injectedStyles}</style>\`)
 `;
 
 /**
@@ -174,11 +184,10 @@ function simplifyCharSvg() {
 
   $$('.sample').forEach((sample, idx) => {
     sample.innerHTML = Array.from(
-      { length: sample.querySelectorAll('svg').length }, 
+      { length: sample.querySelectorAll('svg').length },
       () => `<svg><use href="#char${idx}"/></svg>`
     ).join('\n')
   })
 
   eval(scriptToInjectStyles)
 }
-
