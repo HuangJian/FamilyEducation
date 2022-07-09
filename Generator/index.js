@@ -59,6 +59,8 @@ function makeMaths() {
       const question = arr.map(it => {
         if (it === '?') {
           return `<i class="box"></i>`
+        } else if (it === '/') {
+          return `<i>÷</i>`
         }
         return `<i>${it}</i>`
       }).join('')
