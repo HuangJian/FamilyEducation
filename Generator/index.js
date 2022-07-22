@@ -73,7 +73,6 @@ function makeMaths() {
     + html.replaceAll(/\*/g, '&times;')
 }
 
-const charSize = 54
 /**
  * 生成练习题。
  */
@@ -81,36 +80,22 @@ function makeChars() {
   const char = $('#char-to-practise').value
   if (!char) return
 
-  // https://theajack.gitee.io/cnchar/doc/draw.html#_2-%E4%BD%BF%E7%94%A8
-  cnchar.draw(char, {
-    el: '#char',
-    type: cnchar.draw.TYPE.STROKE,
-    style: {
-      length: charSize,
-      outlineColor: '#999'
-    },
-    line: {
-      lineStraight: false,
-      lineCross: false,
-    },
-  })
+  const reqData = char.split('')
+    .map(it => fetch(`../cnchar-data/draw/${it}.json`).then(res => res.text()))
+  Promise.all(reqData)
+    .then(arr => {
+      const svgArray = arr.map(it => JSON.parse(it)['strokes'])
+        .map(strokes => {
+          const pathArrayText = strokes.map(s => `<path d="${s}"></path>`).join('')
+          return `<div><svg><g>${pathArrayText}</g></svg></div>`
+        })
 
-  waitUntilCharAvailable(() => {
-    layoutChar()
-    simplifyCharSvg()
-    $('#char').prepend(htmlToElement(`<code class="hidden">${char}</code>`))
-  })
-}
+      $('#char').innerHTML = svgArray.join('<hr class="my-2">')
 
-async function waitUntilCharAvailable(resolve) {
-  const nCharsAvailable = $$('#char > div > svg:first-child').length
-  if (nCharsAvailable === $('#char-to-practise').value.length) {
-    console.log('all chars available')
-    return new Promise(resolve)
-  }
-
-  console.log(`${nCharsAvailable} chars available now, waiting another 1000ms`)
-  return new Promise(_ => setTimeout(() => waitUntilCharAvailable(resolve), 1000))
+      layoutChar()
+      injectStyles()
+      $('#char').prepend(htmlToElement(`<code class="hidden">${char}</code>`))
+    })
 }
 
 function copyHtmlSource() {
@@ -135,31 +120,29 @@ function showStrokeNames() {
   const arr = cnchar.stroke(char, 'order', 'name')
   $('#strokes').innerHTML = arr.map((it, idx) => char[idx] + ': ' + it.join(', ')).join('<br>')
 }
+
 /**
  * 布局汉字描红区域。
  */
 function layoutChar() {
   const emptyBox = htmlToElement(`<svg></svg>`)
 
-  $$('#char > div > svg:first-child').forEach((char, idx) => {
-    const clone = char.cloneNode(true)
-
+  $$('#char svg').forEach((char, idx) => {
     const container = htmlToElement('<div class="write-them-down flex w-100 justify-between"></div>')
+    char.parentElement.prepend(container)
+
+    const sample = htmlToElement('<div class="flex scale-[0.7] origin-left w-fit sample"></div>')
+    char.parentElement.prepend(sample)
+    sample.appendChild(char)
+
     const id = `char${idx}`
-    clone.firstChild.setAttribute('id', id)
-    container.appendChild(clone)
+    const g = char.querySelector('g')
+    g.setAttribute('id', id)
+    const ref = htmlToElement(`<svg><use href="#${id}"></use></svg>`)
 
-    Array.from({ length: 5 }, () => {
-      const item = clone.cloneNode(false)
-      item.innerHTML = `<use href="#${id}"/>`
-      container.appendChild(item)
-    })
-    char.parentElement.insertAdjacentElement('afterend', container)
-    char.parentElement.classList.add('flex', 'scale-[0.7]', 'origin-left', 'w-fit', 'sample')
-
-    Array.from({ length: 5 }, () => {
-      container.appendChild(emptyBox.cloneNode(false))
-    })
+    Array.from({ length: g.querySelectorAll('path').length - 1}, () => sample.appendChild(ref.cloneNode(true)))
+    Array.from({ length: 6 }, () => container.appendChild(ref.cloneNode(true)))
+    Array.from({ length: 5 }, () => container.appendChild(emptyBox.cloneNode(false)))
   })
 }
 
@@ -176,20 +159,8 @@ const scriptToInjectStyles = `
 `;
 
 /**
- * 简化汉字svg内容，减少代码量，加快浏览器加载速度。
+ * 动态注入汉字笔画样式，避免大量重复 CSS 代码。
  */
-function simplifyCharSvg() {
-  const charContainer = $('#char')
-  charContainer.innerHTML = charContainer.innerHTML
-    .replaceAll(/width=.+? height=.+? /g, '')
-    .replaceAll(/style=".+?;"/g, '')
-
-  $$('.sample').forEach((sample, idx) => {
-    sample.innerHTML = Array.from(
-      { length: sample.querySelectorAll('svg').length },
-      () => `<svg><use href="#char${idx}"/></svg>`
-    ).join('\n')
-  })
-
+function injectStyles() {
   eval(scriptToInjectStyles)
 }

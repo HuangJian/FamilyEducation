@@ -62,7 +62,7 @@
 <!-- <script src="https://unpkg.com/cnchar-order@3.2.1/cnchar.order.min.js" crossorigin="anonymous"></script> -->
 
 <script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js" crossorigin="anonymous"></script>
-<script src="https://fastly.jsdelivr.net/npm/cnchar-draw/cnchar.draw.min.js" crossorigin="anonymous"></script>
+<!-- <script src="https://fastly.jsdelivr.net/npm/cnchar-draw/cnchar.draw.min.js" crossorigin="anonymous"></script> -->
 <script src="https://fastly.jsdelivr.net/npm/cnchar-order/cnchar.order.min.js" crossorigin="anonymous"></script>
 
 <script src="./index.js"></script>
@@ -111,13 +111,21 @@
     --is-gray: 1;
   }
 
-  #char > div > svg {
+  #char svg {
       display: inline-block;
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAP1BMVEUAAABFoFBGoFBGoFBGoVFGn1BDn1JEoVNFp1hEoE9En1FHoVJKoldFoE9GoFBFoFBGn1NGoE9HoU9GoVBEn1Jj1l/OAAAAFXRSTlMAMma7X201CQUsIRUNs6uPKKF6STipww1qAAABtklEQVRo3u2b2Y6DMAxFfQnD2pbO8v/fOlKL5JFoUZMmXpict4qSIyEwxrEpgFJpGkplIEKAvBiXm7mTFa9KNkuJWcjmwuKNDouYeHNTiYn7M0hFTD1V9FhAOiAUNaPdfbQLwIsLm3npcub0hRHmiACS8/aZqYB43HiFQuZpJFkxU8XP+IGSGAF5xGOvE7cRxiyhpuwifJK8d3u1RRfAZPn1/pwWVDEcMv8yKYmngFhxXyxu74txzmbuIsT89wJmFid4080sLp8g4+uh2E6cHC4gHQaq+ObTYM0ADRWBw0PEgVLmphHxsoLFIl6WnFgsGidXL4uvsvGZxcOVXsBRslfFd75VoydmEoTNbz2/7Ur8b4SAN87/WKGVV3+v4uTzBS71UW6uyMfpAAHkX4t3XouHSAQiUx/3yV5keus+oY/9hPH/0VYxxEBxmC03RRbY3JcU44uovsvGKYVy31sDk9mcq5KK/qZmjm1cTxvXCJ3XFoH7Ik7aMTI2oDhpubEdMqt4v3XOarNgyfZIiw2hDw/7br29LW6uzXmp3/sVKwMa6SMpekM4emNHeoNWWqNlesN0auODvzsxCat6cG0IAAAAAElFTkSuQmCC");
       background-size: contain;
       border: 1px solid rgba(70, 160, 80, 0.5);
       width: 54px;
       height: 54px;
+  }
+
+  g {
+    transform: translate(5px, 43.671875px) scale(0.04296875, -0.04296875);
+  }
+
+  .sample > svg + svg {
+      margin-left: 4px;
   }
 
   #math {
@@ -149,16 +157,5 @@
       border-bottom: 1px solid #aaa;
   }
 
-  .sample > svg + svg {
-      margin-left: 4px;
-  }
-
-  .write-them-down + .sample {
-      margin-top: 8px;
-  }
-  .write-them-down:not(:last-child) {
-      padding-bottom: 12px;
-      border-bottom: 1px solid #e5e7eb;
-  }
 </style>
 </html>
