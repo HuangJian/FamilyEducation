@@ -28,7 +28,7 @@
     - 四百以内加减法、乘法口诀算除法
 
 - [第六章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-6)
-    - 复杂汉字描红：火爆辣椒、……
+    - 复杂汉字描红：酷暑难耐热、风如拔山怒、落日矫乌云、狂风暴雨忽无凭、……
     - 五百以内加减法、简单除法
 
 ## [习题制作器网页](https://huangjian.github.io/FamilyEducation/Generator)
