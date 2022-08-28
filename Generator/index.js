@@ -169,3 +169,37 @@ const scriptToInjectStyles = `
 function injectStyles() {
   eval(scriptToInjectStyles)
 }
+
+/**
+ * 根据传入的数字随机修改其末两位，生成一个新数字。
+ * @param {传入的数字} seed
+ * @returns 随机生成的新数字。
+ */
+function randomNumber(seed) {
+  // 最后一题暂时固定为 999 减去多个数，所以不处理 999。
+  // 977-317-113-353=?
+  if (seed === '999') return seed
+
+  const num = parseInt(seed)
+  // 只随机生成末两位，避免答案出现负数或者超过一千
+  let ret
+  do {
+    ret = seed - seed % 100 + Math.floor(Math.random() * 99)
+  } while(ret < 11) // 避免出现 10 以下数字，难度过低
+  return `${ret}`
+}
+
+/**
+ * 生成随机计算题。
+ */
+function randomizeCalculations() {
+  $('#calculations').value = $('#calculations').value.split('\n')
+    .map(line => line.split(',').map(item => {
+        if (!/[+-]/.test(item)) { // 只处理加减法
+          return item
+        }
+
+        return item.replace(/\d+/g, match => randomNumber(match))
+      }).join(',')
+    ).join('\n')
+}
