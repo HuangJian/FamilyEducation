@@ -32,16 +32,16 @@ function make() {
 }
 
 $('#calculations').value = `
-4+?=10,9+?=18,7+?=22
-?-8=2,?-12=12,?-13=8
-20-?=14,36-?=28,44-?=12
-16+7=?,75+28=?,105-25=?
-1*1=?,2*1=?,3*1=?
+237+583=?,242+566=?,412+605=?
+783-73=?,862-295=?,836-327=?
+81+?=823,247+?=812,327+?=935
+22*6=?,32*8=?,66*10=?
+72/?=?,72/6=?,92/4=?
 ---
-?+23=35-7,9+?=11+18
-6+?+5=30,18+19+20+21=?
-24+?=50-?,21+17+35+24=?
-23-?=32-?,42-28+33-39=?
+?-238=726-414,138+272+394+127=?
+832-205=?+385,314+185+283-692=?
+277+?+354=903,484+226-129-373=?
+205+?-417=299,999-365-127-348=?
 `.trim()
 
 function makeMaths() {
@@ -115,10 +115,15 @@ function copyHtmlSource() {
   navigator.clipboard.writeText(source)
 }
 
-function showStrokeNames() {
+function toggleStrokeNames() {
   const char = $('#char-to-practise').value
   const arr = cnchar.stroke(char, 'order', 'name')
-  $('#strokes').innerHTML = arr.map((it, idx) => char[idx] + ': ' + it.join(', ')).join('<br>')
+  const isStrokeVisible = $('#strokes').innerHTML?.includes('<br>')
+  if (isStrokeVisible) {
+    $('#strokes').innerHTML = ''
+  } else {
+    $('#strokes').innerHTML = arr.map((it, idx) => char[idx] + ': ' + it.join(', ')).join('<br>')
+  }
 }
 
 /**
