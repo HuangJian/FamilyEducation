@@ -27,8 +27,16 @@
     - 复杂汉字描红：檐疏蛛网重、垂緌饮清露、溪涨清风拂面、忧郁蘑菇、……
     - 四百以内加减法、乘法口诀算除法
 
-- [第六章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-6)
+- [第六章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-6)（共 30 天练习内容）
     - 复杂汉字描红：酷暑难耐热、风如拔山怒、落日矫乌云、狂风暴雨忽无凭、……
     - 五百以内加减法、简单除法
+
+- [第七章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-7)（共 30 天练习内容）
+    - 汉字描红：破镜催归客、残阳见旧山、但愿人长久、千里共婵娟、……
+    - 一千以内加减法、两位数乘一位数、三位数除一位数
+
+- [第八章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-8)
+    - 汉字描红：暑气时将薄、虫声夜转稠、林枫欲老柿将熟、秋在万山深处红、……
+    - 一千以内加减法、两位数乘一位数、三位数除一位数
 
 ## [习题制作器网页](https://huangjian.github.io/FamilyEducation/Generator)
