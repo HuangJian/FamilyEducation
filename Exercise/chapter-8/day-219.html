@@ -1,0 +1,380 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com/3.0.12"></script>
+</head>
+<body>
+    <section id="output">
+        <div id="math" class="flex flex-col max-w-2xl mx-auto">
+            <code class="hidden">
+                218+536=?,266+560=?,413+616=?
+                787-98=?,824-281=?,875-388=?
+                48+?=863,295+?=872,382+?=968
+                28*5=?,36*6=?,47*9=?
+                159/3=?,279/9=?,516/6=?
+                ---
+                ?-267=781-423,143+249+316+126=?
+                840-233=?+392,317+232+298-650=?
+                229+?+325=942,491+207-136-388=?
+                246+?-458=229,999-305-110-331=?
+            </code>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>218</i><i>+</i><i>536</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>266</i><i>+</i><i>560</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>413</i><i>+</i><i>616</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>787</i><i>-</i><i>98</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>824</i><i>-</i><i>281</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>875</i><i>-</i><i>388</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>48</i><i>+</i><i class="box"></i><i>=</i><i>863</i>
+                </div>
+                <div class="question flex-1">
+                    <i>295</i><i>+</i><i class="box"></i><i>=</i><i>872</i>
+                </div>
+                <div class="question flex-1">
+                    <i>382</i><i>+</i><i class="box"></i><i>=</i><i>968</i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>28</i><i>×</i><i>5</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>36</i><i>×</i><i>6</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>47</i><i>×</i><i>9</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>159</i><i>÷</i><i>3</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>279</i><i>÷</i><i>9</i><i>=</i><i class="box"></i>
+                </div>
+                <div class="question flex-1">
+                    <i>516</i><i>÷</i><i>6</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <hr class="mt-2">
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i class="box"></i><i>-</i><i>267</i><i>=</i><i>781</i><i>-</i><i>423</i>
+                </div>
+                <div class="question flex-1">
+                    <i>143</i><i>+</i><i>249</i><i>+</i><i>316</i><i>+</i><i>126</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>840</i><i>-</i><i>233</i><i>=</i><i class="box"></i><i>+</i><i>392</i>
+                </div>
+                <div class="question flex-1">
+                    <i>317</i><i>+</i><i>232</i><i>+</i><i>298</i><i>-</i><i>650</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>229</i><i>+</i><i class="box"></i><i>+</i><i>325</i><i>=</i><i>942</i>
+                </div>
+                <div class="question flex-1">
+                    <i>491</i><i>+</i><i>207</i><i>-</i><i>136</i><i>-</i><i>388</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1">
+                    <i>246</i><i>+</i><i class="box"></i><i>-</i><i>458</i><i>=</i><i>229</i>
+                </div>
+                <div class="question flex-1">
+                    <i>999</i><i>-</i><i>305</i><i>-</i><i>110</i><i>-</i><i>331</i><i>=</i><i class="box"></i>
+                </div>
+            </div>
+        </div>
+        <hr class="my-2">
+        <div id="char" class="flex flex-col max-w-2xl mx-auto">
+            <code class="hidden">空山新雨后</code>
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg>
+                        <g id="char0">
+                            <path d="M 467 796 Q 524 739 559 727 Q 577 724 586 740 Q 593 756 588 775 Q 579 803 558 816 Q 509 844 463 844 Q 454 844 449 841 Q 442 840 446 825 Q 447 812 467 796 Z"></path>
+                            <path d="M 271 628 Q 259 652 248 660 Q 229 676 226 647 Q 229 626 212 590 Q 161 536 163 518 Q 163 491 179 459 Q 195 431 217 460 Q 233 485 246 522 Q 261 568 272 594 C 279 612 279 612 271 628 Z"></path>
+                            <path d="M 272 594 Q 294 582 332 591 Q 455 630 678 654 Q 727 660 743 657 Q 756 644 753 636 Q 753 635 721 553 Q 714 537 721 533 Q 730 529 748 542 Q 809 585 860 598 Q 900 611 900 622 Q 899 632 818 689 Q 790 710 688 688 Q 606 679 377 642 Q 325 635 271 628 C 241 624 243 603 272 594 Z"></path>
+                            <path d="M 351 509 Q 358 494 351 481 Q 320 412 236 321 Q 227 314 225 309 Q 221 299 233 300 Q 278 306 388 427 Q 404 446 417 456 Q 426 463 423 475 Q 422 487 399 509 Q 378 527 363 528 Q 347 528 351 509 Z"></path>
+                            <path d="M 599 481 Q 641 450 686 413 Q 699 401 714 403 Q 724 404 729 416 Q 733 431 723 459 Q 716 484 676 502 Q 589 535 572 527 Q 568 523 569 511 Q 573 501 599 481 Z"></path>
+                            <path d="M 512 276 Q 686 306 693 311 Q 703 318 699 328 Q 692 340 662 349 Q 632 356 532 327 Q 418 306 340 301 Q 303 297 328 278 Q 370 251 430 263 Q 446 267 465 269 L 512 276 Z"></path>
+                            <path d="M 522 100 Q 528 203 535 226 Q 544 253 512 276 C 488 294 457 298 465 269 Q 465 268 466 267 Q 469 258 473 95 C 474 65 520 70 522 100 Z"></path>
+                            <path d="M 473 95 Q 334 82 175 68 Q 151 67 168 47 Q 183 31 203 24 Q 225 17 244 22 Q 491 79 846 59 Q 868 58 874 68 Q 881 81 863 97 Q 803 142 764 134 Q 673 118 522 100 L 473 95 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg>
+                        <g id="char1">
+                            <path d="M 536 209 Q 546 407 552 587 Q 556 633 562 664 Q 569 691 574 710 Q 578 723 554 740 Q 512 762 484 767 Q 465 771 456 760 Q 447 751 457 734 Q 488 688 489 655 Q 499 444 488 200 C 487 170 534 179 536 209 Z"></path>
+                            <path d="M 796 244 Q 657 232 536 209 L 488 200 Q 379 182 284 155 Q 256 148 263 180 Q 267 253 272 329 Q 275 357 263 373 Q 220 416 190 409 Q 178 403 188 382 Q 224 309 215 236 Q 211 166 182 133 Q 161 112 170 96 Q 183 78 203 66 Q 219 57 230 67 Q 243 83 283 99 Q 440 151 606 182 Q 757 210 789 197 C 819 193 826 247 796 244 Z"></path>
+                            <path d="M 789 197 Q 783 166 774 145 Q 756 118 785 55 Q 795 36 809 49 Q 837 73 846 173 Q 868 386 890 427 Q 900 443 889 460 Q 867 479 831 501 Q 816 510 802 503 Q 793 499 796 484 Q 823 435 796 244 L 789 197 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg>
+                        <g id="char2">
+                            <path d="M 335 790 Q 360 771 385 747 Q 401 735 417 737 Q 429 738 433 752 Q 437 768 425 799 Q 413 827 327 840 Q 311 843 304 839 Q 298 835 301 821 Q 305 811 335 790 Z"></path>
+                            <path d="M 216 662 Q 183 656 207 641 Q 246 620 296 631 Q 387 650 481 670 Q 524 680 531 686 Q 538 693 535 701 Q 528 711 502 719 Q 475 723 365 688 Q 310 673 216 662 Z"></path>
+                            <path d="M 234 570 Q 255 530 280 509 Q 290 505 300 513 Q 307 522 307 535 Q 304 569 251 596 Q 250 597 249 597 Q 239 604 230 602 Q 226 602 225 592 Q 224 583 234 570 Z"></path>
+                            <path d="M 411 501 Q 414 505 418 511 Q 436 533 455 564 Q 462 577 478 594 Q 491 604 484 613 Q 477 628 452 646 Q 442 656 426 652 Q 417 648 422 638 Q 429 611 386 513 Q 380 503 378 494 C 370 465 393 477 411 501 Z"></path>
+                            <path d="M 360 452 Q 424 467 505 477 Q 521 478 521 486 Q 522 498 506 506 Q 473 521 411 501 L 378 494 Q 171 449 81 441 Q 68 440 66 432 Q 63 422 77 411 Q 114 384 153 397 Q 249 428 312 443 Q 313 444 319 444 L 360 452 Z"></path>
+                            <path d="M 384 331 Q 393 337 502 355 Q 511 354 518 365 Q 519 375 499 383 Q 475 401 394 373 Q 390 372 386 370 L 333 355 Q 275 340 146 317 Q 122 313 142 299 Q 172 278 195 285 Q 255 303 333 320 L 384 331 Z"></path>
+                            <path d="M 383 284 Q 383 309 384 331 L 386 370 Q 386 383 388 397 Q 394 421 388 430 Q 381 440 360 452 C 335 468 308 472 319 444 Q 332 417 333 355 L 333 320 Q 333 263 333 172 Q 332 147 323 137 Q 317 134 256 151 Q 246 155 245 148 Q 245 141 253 132 Q 299 83 329 45 Q 339 36 352 50 Q 394 105 387 204 Q 386 228 384 256 L 383 284 Z"></path>
+                            <path d="M 197 255 Q 178 207 150 165 Q 132 135 149 104 Q 156 88 176 99 Q 221 138 222 203 Q 226 233 219 255 Q 215 262 209 264 Q 202 263 197 255 Z"></path>
+                            <path d="M 384 256 Q 411 243 451 214 Q 463 205 475 208 Q 482 209 485 220 Q 486 232 477 254 Q 470 269 443 277 Q 386 287 383 284 C 353 279 357 269 384 256 Z"></path>
+                            <path d="M 634 602 Q 683 621 716 638 Q 791 677 821 683 Q 843 689 837 709 Q 827 728 803 748 Q 782 767 769 766 Q 756 767 758 753 Q 755 720 685 668 Q 654 646 621 619 C 598 600 606 591 634 602 Z"></path>
+                            <path d="M 625 478 Q 625 553 632 585 Q 636 595 634 602 C 635 610 635 610 621 619 Q 576 650 553 642 Q 543 635 550 621 Q 593 560 555 312 Q 551 296 547 277 Q 525 196 465 82 Q 461 75 459 69 Q 458 59 467 62 Q 483 65 511 109 Q 601 217 623 447 L 625 478 Z"></path>
+                            <path d="M 786 467 Q 789 470 932 492 Q 947 495 947 502 Q 947 515 923 530 Q 884 557 818 526 Q 767 510 728 500 Q 676 491 625 478 C 596 471 593 451 623 447 Q 627 447 632 446 Q 645 443 670 446 Q 701 452 729 457 L 786 467 Z"></path>
+                            <path d="M 754 -33 Q 758 -58 766 -69 Q 770 -76 779 -74 Q 806 -53 808 114 Q 807 165 812 360 Q 812 384 821 425 Q 824 444 810 453 Q 797 463 786 467 C 759 481 717 484 729 457 Q 750 412 750 381 Q 751 275 750 111 Q 749 3 754 -33 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg>
+                        <g id="char3">
+                            <path d="M 502 676 Q 587 689 679 701 Q 743 711 753 719 Q 763 726 758 736 Q 752 749 723 758 Q 692 767 661 756 Q 588 737 509 722 Q 422 709 321 705 Q 284 701 308 682 Q 350 655 424 667 Q 440 670 458 670 L 502 676 Z"></path>
+                            <path d="M 219 488 Q 191 512 164 517 Q 158 520 153 513 Q 149 506 153 492 Q 184 438 187 392 Q 196 284 185 165 Q 181 140 192 118 Q 205 97 224 84 Q 239 75 241 87 Q 248 91 250 115 Q 256 142 246 231 Q 234 390 234 450 C 234 476 234 476 219 488 Z"></path>
+                            <path d="M 529 507 Q 559 514 789 532 Q 808 533 814 524 Q 824 517 822 466 Q 816 258 783 141 Q 773 105 742 111 Q 703 120 668 127 Q 655 131 654 125 Q 653 118 664 107 Q 740 49 761 17 Q 771 -1 784 2 Q 800 3 815 33 Q 843 76 852 129 Q 868 199 882 446 Q 885 491 899 515 Q 917 537 903 542 Q 887 558 849 576 Q 825 592 799 581 Q 763 571 672 560 Q 596 553 530 543 L 485 536 Q 430 529 386 519 Q 301 501 219 488 C 189 483 206 440 234 450 Q 255 468 486 500 L 529 507 Z"></path>
+                            <path d="M 530 543 Q 531 589 541 623 Q 548 636 546 646 Q 540 653 502 676 C 476 692 443 696 458 670 Q 458 669 460 665 Q 482 635 483 604 Q 484 573 485 536 L 486 500 Q 486 281 474 230 Q 459 203 485 142 Q 491 127 497 125 Q 503 119 508 126 Q 515 130 523 147 Q 530 166 530 193 Q 529 224 529 507 L 530 543 Z"></path>
+                            <path d="M 327 380 Q 378 347 405 341 Q 415 341 420 352 Q 423 362 418 373 Q 399 409 331 409 L 330 409 Q 317 410 312 406 Q 308 405 311 396 Q 314 389 327 380 Z"></path>
+                            <path d="M 319 246 Q 370 206 395 201 Q 407 201 412 212 Q 415 222 411 235 Q 404 253 388 260 Q 369 270 324 277 Q 311 278 304 275 Q 300 274 303 264 Q 306 255 319 246 Z"></path>
+                            <path d="M 611 413 Q 669 383 697 382 Q 709 383 712 395 Q 713 407 707 418 Q 689 445 632 445 Q 598 445 591 439 Q 587 436 592 428 Q 596 419 611 413 Z"></path>
+                            <path d="M 609 269 Q 658 233 686 228 Q 699 228 704 240 Q 707 252 702 264 Q 684 297 633 300 Q 600 304 592 299 Q 588 298 591 287 Q 594 278 609 269 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg>
+                        <g id="char4">
+                            <path d="M 353 620 Q 498 656 596 701 Q 651 723 699 731 Q 720 732 724 741 Q 728 754 715 768 Q 690 787 636 809 Q 617 819 601 818 Q 592 814 591 800 Q 591 755 347 642 C 320 629 324 613 353 620 Z"></path>
+                            <path d="M 330 467 Q 337 519 344 581 Q 353 614 353 620 C 356 636 356 636 347 642 Q 344 646 339 648 Q 288 678 272 676 Q 250 673 266 649 Q 299 580 257 362 Q 242 304 209 236 Q 175 167 78 85 Q 62 72 58 66 Q 55 59 68 58 Q 107 55 191 130 Q 293 232 327 447 L 330 467 Z"></path>
+                            <path d="M 327 447 Q 363 417 400 430 Q 602 493 857 493 Q 858 493 860 493 Q 881 494 885 503 Q 889 516 872 529 Q 815 566 778 556 Q 646 522 332 468 Q 329 468 330 467 C 306 462 306 462 327 447 Z"></path>
+                            <path d="M 386 295 Q 373 301 347 306 Q 334 310 329 304 Q 322 297 331 279 Q 364 203 380 80 Q 381 43 403 17 Q 422 -8 428 10 Q 432 23 434 45 L 430 89 Q 412 216 406 257 C 402 287 401 289 386 295 Z"></path>
+                            <path d="M 737 123 Q 773 235 815 264 Q 836 286 819 308 Q 801 323 734 358 Q 713 367 688 358 Q 568 313 386 295 C 356 292 376 252 406 257 Q 418 258 659 301 Q 689 308 700 295 Q 712 282 708 256 Q 693 186 675 127 C 666 98 728 95 737 123 Z"></path>
+                            <path d="M 434 45 Q 443 45 452 46 Q 549 65 759 74 Q 772 75 774 86 Q 775 96 738 123 L 737 123 L 675 127 Q 539 100 430 89 C 400 86 404 44 434 45 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        path {
+            /* 仅当 --char-index === --stroke-index 时，可得 1（true），否则 0 （false）*/
+            --is-current: clamp(0,
+                    calc(1 - (var(--char-index) - var(--stroke-index)) * (var(--char-index) - var(--stroke-index))),
+                    1);
+            /* 仅当 --char-index > --stroke-index 时，可得 1（true），否则 0 （false）*/
+            --is-past: clamp(0,
+                    calc(var(--char-index) - var(--stroke-index)),
+                    1);
+            /* 仅当 --char-index < --stroke-index 时，可得 1（true），否则 0 （false）*/
+            --is-next: clamp(0,
+                    calc(var(--stroke-index) - var(--char-index)),
+                    1);
+            /* 设计不同场景下笔画填色
+    当前笔画：红色 - current: rgba(187,  68,  68, 1);
+    之前笔画：黑色 - past:    rgba( 85,  85,  85, 1);
+    后继笔画：透明 - next:    rgba(any, any, any, 0);
+    描红笔画：灰色 - gray:    rgba(185, 185, 185, 1);
+    */
+            --stroke-color: rgba(calc(85 * var(--is-past) + 187 * var(--is-current) + 68 * var(--is-gray)),
+                    calc(85 * var(--is-past) + 68 * var(--is-current) + 68 * var(--is-gray)),
+                    calc(85 * var(--is-past) + 68 * var(--is-current) + 68 * var(--is-gray)),
+                    calc(1 - var(--is-next)));
+            fill: var(--stroke-color);
+        }
+        :root {
+            --is-gray: 0;
+            /* 初始化为 100，使描红字样必定计算出 --is-past=1，--is-current=0 --is-next=0 */
+            --char-index: 100;
+        }
+        .write-them-down {
+            /* 描红格子里填充灰色 */
+            --is-gray: 1;
+        }
+        #char svg {
+            display: inline-block;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAP1BMVEUAAABFoFBGoFBGoFBGoVFGn1BDn1JEoVNFp1hEoE9En1FHoVJKoldFoE9GoFBFoFBGn1NGoE9HoU9GoVBEn1Jj1l/OAAAAFXRSTlMAMma7X201CQUsIRUNs6uPKKF6STipww1qAAABtklEQVRo3u2b2Y6DMAxFfQnD2pbO8v/fOlKL5JFoUZMmXpict4qSIyEwxrEpgFJpGkplIEKAvBiXm7mTFa9KNkuJWcjmwuKNDouYeHNTiYn7M0hFTD1V9FhAOiAUNaPdfbQLwIsLm3npcub0hRHmiACS8/aZqYB43HiFQuZpJFkxU8XP+IGSGAF5xGOvE7cRxiyhpuwifJK8d3u1RRfAZPn1/pwWVDEcMv8yKYmngFhxXyxu74txzmbuIsT89wJmFid4080sLp8g4+uh2E6cHC4gHQaq+ObTYM0ADRWBw0PEgVLmphHxsoLFIl6WnFgsGidXL4uvsvGZxcOVXsBRslfFd75VoydmEoTNbz2/7Ur8b4SAN87/WKGVV3+v4uTzBS71UW6uyMfpAAHkX4t3XouHSAQiUx/3yV5keus+oY/9hPH/0VYxxEBxmC03RRbY3JcU44uovsvGKYVy31sDk9mcq5KK/qZmjm1cTxvXCJ3XFoH7Ik7aMTI2oDhpubEdMqt4v3XOarNgyfZIiw2hDw/7br29LW6uzXmp3/sVKwMa6SMpekM4emNHeoNWWqNlesN0auODvzsxCat6cG0IAAAAAElFTkSuQmCC");
+            background-size: contain;
+            border: 1px solid rgba(70, 160, 80, 0.5);
+            width: 54px;
+            height: 54px;
+        }
+        g {
+            transform: translate(5px, 43.671875px) scale(0.04296875, -0.04296875);
+        }
+        .sample>svg+svg {
+            margin-left: 4px;
+        }
+        #math {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            color: #666;
+        }
+        #math .question {
+            text-align: center;
+        }
+        #math .question:first-child {
+            text-align: left;
+        }
+        #math .question:last-child {
+            text-align: right;
+        }
+        #math .question>i {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            width: 36px;
+            height: 36px;
+            font-style: normal;
+        }
+        #math .box {
+            border-bottom: 1px solid #aaa;
+        }
+    </style>
+    <script>
+        const injectedStyles = Array.from({ length: 100 })
+            .map((_, idx) => `
+                .sample > svg:nth-child(${idx + 1}) { --char-index: ${idx + 1}; }
+                path:nth-child(${idx + 1}) { --stroke-index: ${idx + 1}; }
+                `
+            ).join('\n')
+        document.querySelector('#injected')?.remove()
+        document.head.insertAdjacentHTML('beforeend', `<style id="injected">${injectedStyles}</style>`)
+    </script>
+</body>
+</html>
