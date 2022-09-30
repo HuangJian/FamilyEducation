@@ -1,6 +1,9 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
+
+    // See https://code.visualstudio.com/docs/editor/variables-reference for available variables
+
     "version": "2.0.0",
     "tasks": [
         {
@@ -22,7 +25,22 @@
                 "build-in-format"
             ],
             "dependsOrder": "sequence",
-            "problemMatcher": []
-        }
+            "problemMatcher": [],
+        },
+        {
+            "label": "toggle-strokes-visibility",
+            "type": "shell",
+            "command": "node",
+            "args": [
+                "${workspaceFolder}/Generator/gist/toggle-strokes-visibility.task.js",
+                "${file}",
+                "${selectedText}",
+                "${lineNumber}",
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": [],
+        },
     ]
 }

@@ -145,7 +145,7 @@ function layoutChar() {
     g.setAttribute('id', id)
     const ref = htmlToElement(`<svg><use href="#${id}"></use></svg>`)
 
-    Array.from({ length: g.querySelectorAll('path').length - 1}, () => sample.appendChild(ref.cloneNode(true)))
+    Array.from({ length: g.querySelectorAll('path').length - 1}, () => sample.prepend(ref.cloneNode(true)))
     Array.from({ length: 6 }, () => container.appendChild(ref.cloneNode(true)))
     Array.from({ length: 5 }, () => container.appendChild(emptyBox.cloneNode(false)))
   })
