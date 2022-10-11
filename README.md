@@ -35,8 +35,8 @@
     - 汉字描红：破镜催归客、残阳见旧山、但愿人长久、千里共婵娟、……
     - 一千以内加减法、两位数乘一位数、三位数除一位数
 
-- [第八章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-8)
-    - 汉字描红：暑气时将薄、虫声夜转稠、林枫欲老柿将熟、秋在万山深处红、……
-    - 一千以内加减法、两位数乘一位数、三位数除一位数
+- [第八章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-8)（共 30 天练习内容）
+    - 汉字描红：暑气时将薄、林枫欲老柿将熟、秋在万山深处红、月落乌啼霜满天、……
+    - 一千以内加减法、三位数乘除一位数
 
 ## [习题制作器网页](https://huangjian.github.io/FamilyEducation/Generator)
