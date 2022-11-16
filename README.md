@@ -39,4 +39,12 @@
     - 汉字描红：暑气时将薄、林枫欲老柿将熟、秋在万山深处红、月落乌啼霜满天、……
     - 一千以内加减法、三位数乘除一位数
 
+- [第九章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-9)（共 30 天练习内容）
+    - 汉字描红：最爱肯德基、奇迹彗星蓝、帮忙做家务、雄狮怒吼威、……
+    - 一千以内加减法、三位数乘除一位数
+
+- [第十章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-10)
+    - 汉字描红：彩色陀螺转、高压锅唱歌、……
+    - 一千以内加减法、三位数乘除一位数
+
 ## [习题制作器网页](https://huangjian.github.io/FamilyEducation/Generator)
