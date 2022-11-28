@@ -32,16 +32,16 @@ function make() {
 }
 
 $('#calculations').value = `
-237+583=?,242+566=?,412+605=?
-783-73=?,862-295=?,836-327=?
-81+?=823,247+?=812,327+?=935
-22*6=?,32*8=?,66*10=?
-72/?=?,72/6=?,92/4=?
+420+391=?,215+409=?,426+778=?
+724-95=?,971-600=?,942-163=?
+57+?=803,249+?=789,345+?=950
+83*7=?,9*48=?,774*4=?
+459/3=?,504/8=?,918/6=?
 ---
-?-238=726-414,138+272+394+127=?
-832-205=?+385,314+185+283-692=?
-277+?+354=903,484+226-129-373=?
-205+?-417=299,999-365-127-348=?
+?-267=893-453,149+154+404+187=?
+790-279=?+331,501+328+289-918=?
+229+?+395=993,468+470-298-309=?
+278+?-583=467,999-252-122-431=?
 `.trim()
 
 function makeMaths() {
@@ -171,21 +171,21 @@ function injectStyles() {
 }
 
 /**
- * 根据传入的数字随机修改其末两位，生成一个新数字。
+ * 根据传入的数字随机修改后几位，生成一个新数字。
  * @param {传入的数字} seed
+ * @param {需修改的数字位数} digitsToChange
+ * @param {允许生成的最小值} minValue
+ * @param {需要能整除的数字} divideBy
  * @returns 随机生成的新数字。
  */
-function randomNumber(seed) {
-  // 最后一题暂时固定为 999 减去多个数，所以不处理 999。
-  // 977-317-113-353=?
-  if (seed === '999') return seed
-
+function randomNumber(seed, digitsToChange, minValue, divideBy) {
   const num = parseInt(seed)
-  // 只随机生成末两位，避免答案出现负数或者超过一千
+  const max = Math.pow(10, digitsToChange) - 1
+
   let ret
   do {
-    ret = seed - seed % 100 + Math.floor(Math.random() * 99)
-  } while(ret < 11) // 避免出现 10 以下数字，难度过低
+    ret = num - num % (max + 1) + Math.floor(Math.random() * max)
+  } while(ret < minValue || (divideBy && ret % divideBy !== 0))
   return `${ret}`
 }
 
@@ -195,11 +195,24 @@ function randomNumber(seed) {
 function randomizeCalculations() {
   $('#calculations').value = $('#calculations').value.split('\n')
     .map(line => line.split(',').map(item => {
-        if (!/[+-]/.test(item)) { // 只处理加减法
-          return item
+        let digitsToChange = 2 // // 只随机生成末两位，避免答案出现负数或者超过一千
+        let minValue = 11 // 避免出现 10 以下数字，难度过低
+        let divideBy = NaN
+
+        const isMultiply = item.includes('*')
+        const isDivision = item.includes('/')
+        if (isDivision) {
+          divideBy = parseInt(/(\d)=/.exec(item)[1]) // '528/8=?' => 8
         }
 
-        return item.replace(/\d+/g, match => randomNumber(match))
+        return item.replace(/\d+/g, match => {
+          if ((isMultiply || isDivision) && match.length === 1) { // 乘数或者被除数，且只有个位数 → 不变
+            return match
+          } else if (match === '999') { // 最后一题暂时固定为 999 减去多个数，所以不处理 999。999-317-113-353=?
+            return match
+          }
+          return randomNumber(match, digitsToChange, minValue, divideBy)
+        })
       }).join(',')
     ).join('\n')
 }
