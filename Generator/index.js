@@ -149,15 +149,15 @@ function layoutChar() {
 
     const sample = htmlToElement('<div class="flex scale-[0.7] origin-left w-fit sample"></div>')
     char.parentElement.prepend(sample)
-    sample.appendChild(char)
 
     const id = `char${idx}`
     const g = char.querySelector('g')
     g.setAttribute('id', id)
     const ref = htmlToElement(`<svg><use href="#${id}"></use></svg>`)
 
-    Array.from({ length: g.querySelectorAll('path').length - 1}, () => sample.prepend(ref.cloneNode(true)))
-    Array.from({ length: 6 }, () => container.appendChild(ref.cloneNode(true)))
+    Array.from({ length: g.querySelectorAll('path').length}, () => sample.prepend(ref.cloneNode(true)))
+    container.appendChild(char)
+    Array.from({ length: 5 }, () => container.appendChild(ref.cloneNode(true)))
     Array.from({ length: 5 }, () => container.appendChild(emptyBox.cloneNode(false)))
   })
 }
