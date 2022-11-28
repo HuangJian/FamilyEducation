@@ -110,7 +110,7 @@ function makeChars() {
 }
 
 function copyHtmlSource() {
-  const styles = $('#globalStyle').innerHTML
+  const styles = $('#globalStyle').innerHTML.replaceAll(/\/\/*.+?\*\//gs, '')
   const madeHtml = $('#output').innerHTML
   const source = `
     <html>
@@ -164,11 +164,12 @@ function layoutChar() {
 
 const scriptToInjectStyles = `
   const injectedStyles = Array.from({ length: 100 })
-    .map((_, idx) => \`
-      .sample > svg:nth-child(\${idx + 1}) { --char-index: \${idx + 1}; }
-      path:nth-child(\${idx + 1}) { --stroke-index: \${idx + 1}; }
-      \`
-    ).join('\\n')
+    .map(it => it + 1)
+    .map((_, idx) =>
+      \`.sample > svg:nth-child(\${idx}) { --char-index: \${idx}; }\`
+      + \`path:nth-child(\${idx}) { --stroke-index: \${idx}; }\`
+    )
+    .join('\\n')
 
   document.querySelector('#injected')?.remove()
   document.head.insertAdjacentHTML('beforeend', \`<style id="injected">\${injectedStyles}</style>\`)

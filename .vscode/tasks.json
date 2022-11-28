@@ -11,6 +11,11 @@
             "command": "${command:editor.action.formatDocument}"
         },
         {
+            "label": "delay-1-second",
+            "type": "shell",
+            "command": "sleep 1"
+        },
+        {
             "label": "fix-format",
             "type": "shell",
             "command": "node",
@@ -22,7 +27,8 @@
                 "reveal": "silent"
             },
             "dependsOn": [
-                "build-in-format"
+                "build-in-format",
+                "delay-1-second",
             ],
             "dependsOrder": "sequence",
             "problemMatcher": [],
