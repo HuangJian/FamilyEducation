@@ -46,31 +46,42 @@ $('#calculations').value = `
 
 function makeMaths() {
   const content = $('#calculations').value
-  const lines = (content || '[]').split('\n')
-
-  const html = lines.map(line => {
-    if (line.startsWith('---')) {
-      return '<hr class="mt-2">'
+  $('#math').innerHTML = `
+    <code class="hidden">${content}</code>
+    ${
+      (content || '[]')
+        .split('\n')
+        .map(line => convertLineToHtml(line))
+        .join('')
     }
+  `
+}
 
-    const items = line.split(',')
-    const inner = items.map(item => {
-      const arr = item.match(/(\d+)|\+|-|\*|\/|=|\?/g) || []
-      const question = arr.map(it => {
-        if (it === '?') {
-          return `<i class="box"></i>`
-        } else if (it === '/') {
-          return `<i>÷</i>`
-        }
-        return `<i>${it}</i>`
-      }).join('')
-      return `<div class="question flex-1">\n${question}\n</div>`
-    }).join('\n')
-    return `<div class="flex origin-left mt-2">${inner}</div>`
-  }).join('\n')
+// '83*7=?,9*48=?,774*4=?' => <div class="question flex-1">xxx</div>
+// '---' => <hr class="mt-2">
+function convertLineToHtml(line) {
+  if (line.startsWith('---')) {
+    return '<hr class="mt-2">'
+  }
 
-  $('#math').innerHTML = `\n<code class="hidden">\n${content}\n</code>\n`
-    + html.replaceAll(/\*/g, '&times;')
+  return `
+    <div class="flex origin-left mt-2">
+      ${ line
+          .split(',')
+          .map(item => `<div class="question flex-1">${convertQuestionToHtml(item)}</div>`)
+          .join('')
+      }
+    </div>
+  `
+}
+
+// '83*7=?' => <i>83</i><i>&times;</i><i>7</i><i>=</i><i class="box"></i>
+function convertQuestionToHtml(question) {
+  return question
+    .replaceAll('/', '÷')
+    .replaceAll(/(\d+|[*÷+-=])/g, `<i>$1</i>`)
+    .replaceAll('?', `<i class="box"></i>`)
+    .replaceAll(/\*/g, '&times;')
 }
 
 /**
