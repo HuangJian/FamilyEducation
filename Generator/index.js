@@ -26,6 +26,69 @@ function closeErrorMessage() {
   $('.error').classList.add('hidden')
 }
 
+function toggleMathAnswersVisibility() {
+  const isAnswerVisible = $('.box')?.innerText.length > 0
+  if (isAnswerVisible) {
+    $$('.box').forEach(it => it.innerText = '')
+  } else {
+    $$('.box').forEach((box, idx) => box.innerText = answers[idx])
+  }
+}
+
+let answers = []
+function calcMathAnswers() {
+  return $('#calculations').value.replace('---', '')
+    .split(/[,\n]/g)
+    .filter(it => it.length > 0)
+    .map(question => {
+      const isAnswerAtLeft = question.indexOf('?') < question.indexOf('=')
+
+      const isMulDiv = /[*/]/.test(question)
+      const text = isMulDiv ? question.replace('?', '1') : question // 乘除法，把问号替换为 1
+      const numbers = [...execAll('+' + text, /[*/+-=\s]\d+/g)] // 前面加加号，便于正则表达式处理
+      const equalSignPosition = numbers.findIndex(it => it.startsWith('=')) // 找到等于号的位置，用于判断数字在等于号左边还是右边
+      const operatorForEqualSign = isMulDiv ? (isAnswerAtLeft ? '/' : '*') : (isAnswerAtLeft ? '-' : '+')
+
+      // ?*7=777 → +1 *7 /777
+      // 790-279=?+331 → +790 -279 -331
+      // 229+?+395=993 → +229 +395 -993
+      const expression = numbers.reduce((prev, curr, idx) => {
+        const isCurrentNumberAtLeft = equalSignPosition < 0 || idx < equalSignPosition
+        if (isCurrentNumberAtLeft) {
+          return `${prev} ${curr}`
+        }
+        // 当前处理的数字在等于号右边，需要翻转运算符
+        return `${prev} ${reverseOperator(curr, operatorForEqualSign)}`
+      }, '')
+
+      const answer = Math.abs(eval(expression)) // 加减法的问号在左边时，算出来负数，用 Math.abs 处理一下
+      return answer < 1.0 ? 1.0 / answer : answer // 问号是被除数和乘数时，算出来分数，改成倒数
+    })
+}
+
+// 翻转运算符: +402 => -402
+function reverseOperator(number, operatorForEqualSign) {
+  const operatorMap = {
+    '+': '-',
+    '-': '+',
+    '*': '/',
+    '/': '*',
+    '=': operatorForEqualSign,
+  }
+  return operatorMap[number[0]] + number.substr(1)
+}
+
+function* execAll(str, regex) {
+  if (!regex.global) {
+    console.error('RegExp must have the global flag to retrieve multiple results.')
+  }
+
+  let match
+  while (match = regex.exec(str)) {
+    yield match[0]
+  }
+}
+
 function make() {
   makeMaths()
   makeChars()
@@ -55,6 +118,7 @@ function makeMaths() {
         .join('')
     }
   `
+  answers = calcMathAnswers()
 }
 
 // '83*7=?,9*48=?,774*4=?' => <div class="question flex-1">xxx</div>
@@ -227,4 +291,6 @@ function randomizeCalculations() {
         })
       }).join(',')
     ).join('\n')
+
+    makeMaths()
 }
