@@ -44,14 +44,15 @@ function calcMathAnswers() {
       const isAnswerAtLeft = question.indexOf('?') < question.indexOf('=')
 
       const isMulDiv = /[*/]/.test(question)
-      const text = isMulDiv ? question.replace('?', '1') : question // 乘除法，把问号替换为 1
+      const text = isMulDiv ? question.replace('?', '1') : question.replace('?', '0') // 乘除法，把问号替换为 1
       const numbers = [...execAll('+' + text, /[*/+-=\s]\d+/g)] // 前面加加号，便于正则表达式处理
       const equalSignPosition = numbers.findIndex(it => it.startsWith('=')) // 找到等于号的位置，用于判断数字在等于号左边还是右边
       const operatorForEqualSign = isMulDiv ? (isAnswerAtLeft ? '/' : '*') : (isAnswerAtLeft ? '-' : '+')
 
       // ?*7=777 → +1 *7 /777
-      // 790-279=?+331 → +790 -279 -331
-      // 229+?+395=993 → +229 +395 -993
+      // 790-279=?+331 → +790 -279 -0 -331
+      // 229+?+395=993 → +229 +0 +395 -993
+      // 771-269=?+366 → +771-269 -0 -366
       const expression = numbers.reduce((prev, curr, idx) => {
         const isCurrentNumberAtLeft = equalSignPosition < 0 || idx < equalSignPosition
         if (isCurrentNumberAtLeft) {
