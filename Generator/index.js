@@ -262,7 +262,7 @@ function randomNumber(seed, digitsToChange, minValue, divideBy) {
   let ret
   do {
     ret = num - num % (max + 1) + Math.floor(Math.random() * max)
-  } while(ret < minValue || (divideBy && ret % divideBy !== 0))
+  } while(ret < minValue || (divideBy && ret % divideBy !== 0) || ret === num)
   return `${ret}`
 }
 
