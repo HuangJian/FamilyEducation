@@ -91,8 +91,42 @@ function* execAll(str, regex) {
 }
 
 function make() {
+  makeEnglish()
   makeMaths()
   makeChars()
+}
+
+function makeEnglish() {
+  const words = $('#english-to-practise').value
+
+  const line = words.split(' ')
+    .map(word => {
+      const images = word.split('')
+        .map(letter => {
+          const isCap = /[A-Z]/.test(letter)
+          const style = isCap ? 'cap' : 'lower'
+          return `<img class="letter" src="/Generator/images/${style}-${letter.toLowerCase()}.gif"/>`
+        })
+        .join('\n')
+      return `<div class="flex word">${images}</div>`
+    })
+    .join('\n')
+
+    const lineHtml = `
+      <div class="flex w-100 justify-between">
+        ${line}
+      </div>
+    `
+
+    const dashedRows = $('#dashed-rows').value
+    const dottedRows = $('#dotted-rows').value
+    const dottedLineHtml = lineHtml.replaceAll('cap-', 'dot-').replaceAll('lower-', 'lowdot-')
+
+    const rows = [
+      ...Array.from({ length: dashedRows }, () => lineHtml),
+      ...Array.from({ length: dottedRows }, () => dottedLineHtml),
+    ]
+    $('#english').innerHTML = rows.join('\n')
 }
 
 $('#calculations').value = `
@@ -176,7 +210,7 @@ function makeChars() {
 
 function copyHtmlSource() {
   const styles = $('#globalStyle').innerHTML.replaceAll(/\/\/*.+?\*\//gs, '')
-  const madeHtml = $('#output').innerHTML
+  const madeHtml = $('#output').innerHTML.replaceAll('/Generator/', '../../Generator/')
   const source = `
     <html>
       <head>

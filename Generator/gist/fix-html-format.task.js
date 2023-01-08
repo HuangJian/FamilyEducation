@@ -16,6 +16,10 @@ fs.readFile(htmlFilePath, 'utf8', (err, data) => {
         .replace(/<svg>\n\s*<use(.+?)\n\s*<\/svg>/g, `<svg><use$1</svg>`)
         // 使输入文字自己一行
         .replace(/><code/g, `>\n            <code`)
+        // <img> 独立一行
+        .replace(/(<img.+?>)/g, '\n                    $1\n')
+        // <img> 后面的空行去掉
+        .replace(/\n\s+(\n\s+<img)/g, '$1')
         // 避免空行
         .replace(/\n\n/g, '\n')
     fs.writeFile(htmlFilePath, output, err => console.log(`err = ${err}`))
