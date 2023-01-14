@@ -142,12 +142,23 @@ $('#calculations').value = `
 278+?-583=467,1999-652-522-431=?
 `.trim()
 
+// 处理复制粘贴时的格式错乱
+function fixCalculationsFormat() {
+  const content = ($('#calculations').value || [])
+    .split('\n')
+    .map(line => line.trim())
+    .join('\n')
+  $('#calculations').value = content
+  return content
+}
+
 function makeMaths() {
-  const content = $('#calculations').value
+  const content = fixCalculationsFormat()
+
   $('#math').innerHTML = `
     <code class="hidden">${content}</code>
     ${
-      (content || '[]')
+      content
         .split('\n')
         .map(line => convertLineToHtml(line))
         .join('')
@@ -304,7 +315,8 @@ function randomNumber(seed, digitsToChange, minValue, divideBy) {
  * 生成随机计算题。
  */
 function randomizeCalculations() {
-  $('#calculations').value = $('#calculations').value.split('\n')
+  $('#calculations').value = fixCalculationsFormat()
+    .split('\n')
     .map(line => line.split(',').map(item => {
         let digitsToChange = 2 // // 只随机生成末两位，避免答案出现负数或者超过一千
         let minValue = 11 // 避免出现 10 以下数字，难度过低
