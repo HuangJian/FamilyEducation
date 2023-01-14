@@ -4,6 +4,7 @@
 - 学前教育习题制作
     - 汉字楷体描红
     - 四则运算
+    - 英文字母描红
 
 ## [网页制成版练习集](https://huangjian.github.io/FamilyEducation/)
 
@@ -43,8 +44,17 @@
     - 汉字描红：最爱肯德基、奇迹彗星蓝、帮忙做家务、雄狮怒吼威、……
     - 一千以内加减法、三位数乘除一位数
 
-- [第十章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-10)
-    - 汉字描红：彩色陀螺转、高压锅唱歌、……
+- [第十章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-10)（共 30 天练习内容）
+    - 汉字描红：彩色陀螺转、高压锅唱歌、温暖软被窝、踩桌换灯泡、……
     - 一千以内加减法、三位数乘除一位数
+
+- [第十一章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-11)（共 30 天练习内容）
+    - 汉字描红：提前放寒假、足够退高烧、放烟花爆竹、鹅肉火锅鲜、……
+    - 四位数加减法、三位数乘一位数、四位数除一位数
+
+- [第十二章](https://huangjian.github.io/FamilyEducation/Exercise/chapter-12)
+    - 汉字描红：开始学英语、雾霾空气污染、……
+    - 四位数加减法、三位数乘一位数、四位数除一位数
+    - 英语字母描红: Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn
 
 ## [习题制作器网页](https://huangjian.github.io/FamilyEducation/Generator)
