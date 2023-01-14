@@ -118,13 +118,11 @@ function makeEnglish() {
       </div>
     `
 
-    const dashedRows = $('#dashed-rows').value
-    const dottedRows = $('#dotted-rows').value
     const dottedLineHtml = lineHtml.replaceAll('cap-', 'dot-').replaceAll('lower-', 'lowdot-')
-
     const rows = [
-      ...Array.from({ length: dashedRows }, () => lineHtml),
-      ...Array.from({ length: dottedRows }, () => dottedLineHtml),
+      `<code class="hidden">${words}</code>`,
+      ...Array.from({ length: $('#dashed-rows').value }, () => lineHtml),
+      ...Array.from({ length: $('#dotted-rows').value }, () => dottedLineHtml),
     ]
     $('#english').innerHTML = rows.join('\n')
 }
