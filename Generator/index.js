@@ -105,7 +105,7 @@ function makeEnglish() {
         .map(letter => {
           const isCap = /[A-Z]/.test(letter)
           const style = isCap ? 'cap' : 'lower'
-          return `<img class="letter" src="/Generator/images/${style}-${letter.toLowerCase()}.gif"/>`
+          return `<img class="letter" src="./images/${style}-${letter.toLowerCase()}.gif"/>`
         })
         .join('\n')
       return `<div class="flex word">${images}</div>`
@@ -210,7 +210,7 @@ function makeChars() {
 
 function copyHtmlSource() {
   const styles = $('#globalStyle').innerHTML.replaceAll(/\/\/*.+?\*\//gs, '')
-  const madeHtml = $('#output').innerHTML.replaceAll('/Generator/', '../../Generator/')
+  const madeHtml = $('#output').innerHTML.replaceAll('./images/', '../../Generator/images/')
   const source = `
     <html>
       <head>
