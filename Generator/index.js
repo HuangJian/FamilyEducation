@@ -37,7 +37,7 @@ function toggleMathAnswersVisibility() {
 
 let answers = []
 function calcMathAnswers() {
-  return $('#calculations').value.replace('---', '')
+  return $('#calculations').value.replaceAll('---', '')
     .split(/[,\n]/g)
     .filter(it => it.length > 0)
     .map(question => {
@@ -152,9 +152,11 @@ function fixCalculationsFormat() {
 
 function makeMaths() {
   const content = fixCalculationsFormat()
+  answers = calcMathAnswers()
 
   $('#math').innerHTML = `
     <code class="hidden">${content}</code>
+    <code class="hidden" id="answers">${answers.join(',')}</code>
     ${
       content
         .split('\n')
@@ -162,7 +164,6 @@ function makeMaths() {
         .join('')
     }
   `
-  answers = calcMathAnswers()
 }
 
 // '83*7=?,9*48=?,774*4=?' => <div class="question flex-1">xxx</div>
@@ -212,12 +213,12 @@ function makeChars() {
       $('#char').innerHTML = svgArray.join('<hr class="my-2">')
 
       layoutChar()
-      injectStyles()
       $('#char').prepend(htmlToElement(`<code class="hidden">${char}</code>`))
     })
 }
 
 function copyHtmlSource() {
+  $$('.box').forEach(box => box.innerText = '') // 清空答案
   const styles = $('#globalStyle').innerHTML.replaceAll(/\/\/*.+?\*\//gs, '')
   const madeHtml = $('#output').innerHTML.replaceAll('./images/', '../../Generator/images/')
   const source = `
@@ -228,6 +229,7 @@ function copyHtmlSource() {
       <body>
         <section id="output">${madeHtml}</section>
         <style>${styles}</style>
+        <script>${scriptToDisplayAnswers}</script>
         <script>${scriptToInjectStyles}</script>
       </body>
     </html>`
@@ -270,6 +272,20 @@ function layoutChar() {
   })
 }
 
+const scriptToDisplayAnswers = `
+  let isAnswerVisible = false
+  document.addEventListener('keydown', evt => {
+    if (evt.code === 'ControlLeft') {
+      isAnswerVisible = !isAnswerVisible
+      const answers = document.querySelector('#answers').textContent.split(',')
+      document.querySelectorAll('.box')
+        .forEach((box, idx) => box.innerText = isAnswerVisible ? answers[idx] : '')
+    }
+  })
+`
+eval(scriptToDisplayAnswers)
+
+
 const scriptToInjectStyles = `
   const injectedStyles = Array.from({ length: 100 })
     .map(it => it + 1)
@@ -281,14 +297,10 @@ const scriptToInjectStyles = `
 
   document.querySelector('#injected')?.remove()
   document.head.insertAdjacentHTML('beforeend', \`<style id="injected">\${injectedStyles}</style>\`)
-`;
+`
 
-/**
- * 动态注入汉字笔画样式，避免大量重复 CSS 代码。
- */
-function injectStyles() {
-  eval(scriptToInjectStyles)
-}
+// 动态注入汉字笔画样式，避免大量重复 CSS 代码
+eval(scriptToInjectStyles)
 
 /**
  * 根据传入的数字随机修改后几位，生成一个新数字。
