@@ -1,0 +1,545 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com/3.0.12"></script>
+</head>
+<body>
+    <section id="output">
+        <div id="math" class="flex flex-col max-w-2xl mx-auto">
+            <code class="hidden">468+306=?,250+404=?,956+795=?
+                737-36=?,910-613=?,1545-758=?
+                29+?=867,272+?=1107,1201+?=1668
+                95*8=?,7*249=?,820*5=?
+                735/3=?,1596/6=?,2817/9=?
+                ---
+                ?-288=895-490,376+124+418+386=?
+                723-266=?+390,591+493+423-1259=?
+                211+?+319=992,1078+534-463-953=?
+                264+?-598=560,2128-697-781-435=?</code>
+            <code class="hidden"
+                  id="answers">774,654,1751,701,297,787,838,835,467,760,1743,4100,245,266,313,693,1304,67,248,462,196,894,215</code>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>468</i><i>+</i><i>306</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>250</i><i>+</i><i>404</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>956</i><i>+</i><i>795</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>737</i><i>-</i><i>36</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>910</i><i>-</i><i>613</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>1545</i><i>-</i><i>758</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>29</i><i>+</i><i class="box"></i><i>=</i><i>867</i></div>
+                <div class="question flex-1"><i>272</i><i>+</i><i class="box"></i><i>=</i><i>1107</i></div>
+                <div class="question flex-1"><i>1201</i><i>+</i><i class="box"></i><i>=</i><i>1668</i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>95</i><i>×</i><i>8</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>7</i><i>×</i><i>249</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>820</i><i>×</i><i>5</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>735</i><i>÷</i><i>3</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>1596</i><i>÷</i><i>6</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>2817</i><i>÷</i><i>9</i><i>=</i><i class="box"></i></div>
+            </div>
+            <hr class="mt-2">
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i class="box"></i><i>-</i><i>288</i><i>=</i><i>895</i><i>-</i><i>490</i>
+                </div>
+                <div class="question flex-1"><i>376</i><i>+</i><i>124</i><i>+</i><i>418</i><i>+</i><i>386</i><i>=</i><i
+                       class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>723</i><i>-</i><i>266</i><i>=</i><i class="box"></i><i>+</i><i>390</i>
+                </div>
+                <div class="question flex-1"><i>591</i><i>+</i><i>493</i><i>+</i><i>423</i><i>-</i><i>1259</i><i>=</i><i
+                       class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>211</i><i>+</i><i class="box"></i><i>+</i><i>319</i><i>=</i><i>992</i>
+                </div>
+                <div class="question flex-1"><i>1078</i><i>+</i><i>534</i><i>-</i><i>463</i><i>-</i><i>953</i><i>=</i><i
+                       class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>264</i><i>+</i><i class="box"></i><i>-</i><i>598</i><i>=</i><i>560</i>
+                </div>
+                <div class="question flex-1"><i>2128</i><i>-</i><i>697</i><i>-</i><i>781</i><i>-</i><i>435</i><i>=</i><i
+                       class="box"></i></div>
+            </div>
+        </div>
+        <hr class="my-2">
+        <div id="char" class="flex flex-col max-w-2xl mx-auto">
+            <code class="hidden">火锅煮豆芽</code>
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg>
+                        <g id="char0">
+                            <path d="M 226 483 Q 254 443 285 393 Q 295 375 312 372 Q 324 369 333 381 Q 342 396 342 430 Q 342 472 235 536 Q 220 543 213 543 Q 206 540 204 526 Q 205 513 226 483 Z"></path>
+                            <path d="M 690 568 Q 677 547 584 441 Q 571 422 592 425 Q 638 449 738 513 Q 762 532 791 543 Q 816 553 805 575 Q 789 597 759 615 Q 731 633 715 629 Q 700 628 704 612 Q 708 590 690 568 Z"></path>
+                            <path d="M 511 382 Q 520 439 529 618 Q 530 669 548 728 Q 554 741 543 750 Q 521 769 479 785 Q 454 795 434 789 Q 410 779 430 759 Q 464 725 465 690 Q 469 500 448 374 Q 427 209 284 106 Q 244 81 186 49 Q 170 43 167 39 Q 160 32 179 29 Q 197 28 258 48 Q 301 61 365 101 Q 414 131 442 172 Q 484 232 504 341 L 511 382 Z"></path>
+                            <path d="M 504 341 Q 597 175 715 40 Q 740 9 767 9 Q 843 13 911 17 Q 939 18 940 25 Q 941 32 910 48 Q 753 117 709 157 Q 592 268 511 382 C 493 406 489 367 504 341 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg><use href="#char0"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg>
+                        <g id="char1">
+                            <path d="M 291 622 Q 351 722 370 740 Q 379 750 374 764 Q 370 777 342 800 Q 315 818 297 817 Q 278 816 286 794 Q 301 761 288 733 Q 251 640 192 553 Q 135 471 59 378 Q 49 368 46 362 Q 43 352 57 354 Q 114 363 270 590 Q 271 594 275 598 L 291 622 Z"></path>
+                            <path d="M 275 598 Q 320 583 360 595 Q 403 604 448 614 Q 469 618 472 622 Q 479 629 475 637 Q 468 647 441 654 Q 420 657 342 633 Q 318 629 291 622 C 262 615 246 607 275 598 Z"></path>
+                            <path d="M 308 449 Q 417 483 422 489 Q 429 498 424 505 Q 417 515 387 519 Q 357 522 330 506 Q 305 496 278 486 Q 248 476 213 469 Q 179 459 205 446 Q 223 437 259 437 L 308 449 Z"></path>
+                            <path d="M 322 306 Q 416 333 421 337 Q 428 344 424 353 Q 417 363 387 369 Q 359 373 323 356 L 277 339 Q 189 318 163 313 Q 127 304 154 290 Q 199 271 257 289 Q 264 292 276 293 L 322 306 Z"></path>
+                            <path d="M 276 293 Q 272 173 235 120 Q 195 84 241 36 Q 254 29 265 44 Q 278 69 405 170 Q 424 182 428 190 Q 432 200 423 200 Q 410 200 321 156 Q 311 150 309 160 Q 318 239 322 306 L 323 356 Q 323 360 324 363 Q 324 390 329 411 Q 333 427 308 449 C 287 470 249 465 259 437 Q 277 392 277 339 L 276 293 Z"></path>
+                            <path d="M 574 704 Q 562 711 528 717 Q 516 720 513 715 Q 506 708 515 693 Q 543 633 560 536 Q 563 508 580 488 Q 598 466 603 481 Q 607 494 607 513 L 604 542 Q 589 644 583 676 C 578 702 578 702 574 704 Z"></path>
+                            <path d="M 770 566 Q 792 644 815 666 Q 840 693 817 709 Q 753 751 742 748 Q 735 748 728 743 Q 676 713 574 704 C 544 701 553 672 583 676 Q 652 685 724 693 Q 728 692 732 686 Q 739 680 732 647 Q 723 610 713 566 C 706 537 762 537 770 566 Z"></path>
+                            <path d="M 654 520 Q 700 530 782 538 Q 791 539 792 546 Q 792 553 770 566 C 755 575 742 572 713 566 Q 652 553 604 542 C 575 535 577 511 607 513 Q 613 513 629 516 L 654 520 Z"></path>
+                            <path d="M 501 394 Q 477 412 464 415 Q 458 418 454 412 Q 450 405 453 393 Q 475 350 475 312 Q 476 225 462 130 Q 458 108 466 89 Q 476 70 492 57 Q 505 47 508 58 Q 515 62 518 82 Q 522 103 520 175 Q 517 340 524 355 C 528 375 525 376 501 394 Z"></path>
+                            <path d="M 694 400 Q 745 410 807 414 Q 828 414 837 403 Q 844 396 841 381 Q 848 155 833 122 Q 829 112 816 114 Q 777 118 735 124 Q 707 124 729 109 Q 811 63 847 26 Q 862 11 876 25 Q 892 44 901 76 Q 911 109 900 285 Q 894 351 912 385 Q 925 406 920 413 Q 913 425 862 455 Q 843 468 808 454 Q 784 448 699 432 L 645 423 Q 590 416 562 407 Q 526 400 501 394 C 472 387 495 346 524 355 Q 533 356 541 359 Q 575 375 642 389 L 694 400 Z"></path>
+                            <path d="M 677 318 Q 687 366 694 400 L 699 432 Q 705 469 707 473 Q 714 491 695 501 Q 671 514 654 520 C 626 531 624 532 629 516 Q 628 512 635 500 Q 647 479 645 423 L 642 389 Q 630 317 618 286 Q 615 283 615 279 Q 602 249 548 195 Q 535 185 532 179 Q 529 173 540 173 Q 567 172 616 214 Q 652 247 670 296 L 677 318 Z"></path>
+                            <path d="M 670 296 Q 716 259 774 201 Q 787 185 800 183 Q 807 182 813 190 Q 822 200 810 236 Q 798 278 677 318 C 649 328 647 315 670 296 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg><use href="#char1"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg>
+                        <g id="char2">
+                            <path d="M 507 669 Q 529 675 553 678 Q 589 685 594 690 Q 603 697 599 705 Q 592 715 566 723 Q 538 729 511 719 L 457 702 Q 441 701 426 696 Q 377 686 321 682 Q 287 678 311 661 Q 347 637 400 650 Q 428 656 458 660 L 507 669 Z"></path>
+                            <path d="M 496 545 Q 502 609 507 669 L 511 719 Q 514 752 527 795 Q 530 805 512 818 Q 481 836 458 840 Q 443 843 436 835 Q 429 828 436 815 Q 454 790 454 774 Q 455 740 457 702 L 458 660 Q 458 603 457 540 C 457 510 493 515 496 545 Z"></path>
+                            <path d="M 551 521 Q 665 536 875 535 Q 894 536 899 544 Q 905 556 888 570 Q 837 607 798 599 Q 716 581 589 559 L 518 549 Q 503 549 496 545 L 457 540 Q 309 521 140 498 Q 119 497 135 479 Q 168 451 204 460 Q 370 505 487 514 L 551 521 Z"></path>
+                            <path d="M 469 439 Q 515 485 551 521 L 589 559 Q 704 683 727 694 Q 743 701 742 710 Q 741 717 730 724 Q 699 743 671 748 Q 655 751 648 735 Q 630 672 518 549 L 487 514 Q 453 480 411 438 L 381 409 Q 234 271 99 177 Q 92 173 93 169 Q 94 166 102 167 Q 175 191 212 217 Q 297 278 384 357 L 428 398 Q 432 404 437 408 L 469 439 Z"></path>
+                            <path d="M 411 438 Q 398 448 382 453 Q 375 454 370 448 Q 367 444 373 436 Q 379 418 381 409 L 384 357 Q 387 293 374 249 Q 362 210 388 178 Q 397 168 404 179 Q 411 188 415 202 L 421 234 Q 424 261 424 306 L 425 332 Q 426 377 428 398 C 430 425 430 425 411 438 Z"></path>
+                            <path d="M 613 219 Q 614 206 622 194 Q 634 169 642 170 Q 655 171 668 200 Q 680 222 678 240 Q 659 381 684 421 Q 702 448 625 479 Q 622 480 620 481 Q 607 485 586 478 Q 547 459 499 446 Q 483 443 469 439 C 440 432 408 402 437 408 Q 483 418 517 427 Q 587 446 604 435 Q 623 396 618 248 L 613 219 Z"></path>
+                            <path d="M 424 306 Q 425 306 430 306 Q 509 316 567 323 Q 588 326 581 337 Q 571 350 549 355 Q 522 361 425 332 C 396 323 394 306 424 306 Z"></path>
+                            <path d="M 415 202 Q 422 201 432 203 Q 490 213 613 219 C 643 220 641 228 618 248 Q 614 252 608 256 Q 593 265 564 259 Q 485 243 421 234 C 391 230 385 203 415 202 Z"></path>
+                            <path d="M 260 144 Q 235 93 203 48 Q 181 18 198 -15 Q 204 -33 225 -22 Q 273 11 282 88 Q 288 119 282 143 Q 278 152 272 153 Q 265 152 260 144 Z"></path>
+                            <path d="M 384 105 Q 406 39 428 18 Q 438 11 448 18 Q 457 25 460 38 Q 464 80 406 127 L 405 128 Q 395 137 387 137 Q 383 138 380 129 Q 379 120 384 105 Z"></path>
+                            <path d="M 536 112 Q 563 55 595 23 Q 608 16 620 26 Q 629 36 630 51 Q 631 73 619 90 Q 604 109 558 143 Q 545 152 535 151 Q 529 151 528 140 Q 527 130 536 112 Z"></path>
+                            <path d="M 704 157 Q 747 103 799 28 Q 811 6 825 0 Q 832 -1 841 6 Q 854 16 849 60 Q 846 109 710 186 Q 703 192 698 181 Q 697 168 704 157 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg><use href="#char2"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg>
+                        <g id="char3">
+                            <path d="M 357 744 Q 309 735 344 714 Q 401 683 471 702 Q 559 720 651 739 Q 693 749 699 755 Q 711 765 704 777 Q 694 792 657 801 Q 623 807 534 778 Q 444 753 357 744 Z"></path>
+                            <path d="M 330 555 Q 314 558 294 558 Q 281 561 277 554 Q 271 547 282 530 Q 315 484 341 402 Q 348 377 365 363 Q 387 341 391 359 Q 392 365 392 373 L 387 412 Q 366 488 360 518 C 354 547 353 551 330 555 Z"></path>
+                            <path d="M 673 442 Q 709 511 741 528 Q 762 547 746 569 Q 728 585 671 616 Q 650 628 557 594 Q 388 557 330 555 C 300 553 330 513 360 518 Q 366 518 603 564 Q 628 570 639 559 Q 646 550 642 534 Q 629 491 615 456 C 604 428 659 416 673 442 Z"></path>
+                            <path d="M 392 373 Q 393 374 398 374 Q 486 393 678 410 Q 690 411 691 421 Q 691 428 673 442 L 615 456 Q 609 457 604 455 Q 486 427 387 412 C 357 407 362 368 392 373 Z"></path>
+                            <path d="M 346 238 Q 362 211 379 181 Q 389 163 405 160 Q 415 157 425 169 Q 434 182 433 215 Q 432 234 409 255 Q 384 271 354 288 Q 341 295 333 295 Q 326 292 324 279 Q 325 266 346 238 Z"></path>
+                            <path d="M 562 122 Q 644 239 689 287 Q 708 300 699 311 Q 686 327 657 341 Q 629 354 602 349 Q 586 343 593 321 Q 600 306 596 285 Q 577 221 532 118 C 520 90 545 97 562 122 Z"></path>
+                            <path d="M 532 118 Q 528 119 523 118 Q 339 99 123 78 Q 98 77 116 55 Q 152 19 198 29 Q 513 108 937 87 Q 961 87 967 97 Q 974 110 954 127 Q 882 182 834 163 Q 728 147 562 122 L 532 118 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg><use href="#char3"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+            <hr class="my-2">
+            <div>
+                <div class="flex scale-[0.7] origin-left w-fit sample">
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                </div>
+                <div class="write-them-down flex w-100 justify-between">
+                    <svg>
+                        <g id="char4">
+                            <path d="M 634 694 Q 728 701 829 695 Q 845 694 850 703 Q 856 715 842 730 Q 793 775 709 752 Q 682 749 657 743 L 599 734 Q 515 724 422 711 L 374 706 Q 293 699 208 690 Q 178 687 199 671 Q 250 641 310 655 Q 346 664 382 670 L 424 676 Q 455 686 587 692 L 634 694 Z"></path>
+                            <path d="M 422 711 Q 419 742 419 768 Q 420 787 400 793 Q 363 814 339 805 Q 320 796 336 777 Q 363 747 374 706 L 382 670 Q 391 624 407 608 Q 420 598 425 609 Q 429 624 424 676 L 422 711 Z"></path>
+                            <path d="M 657 743 Q 657 744 658 744 Q 668 766 687 796 Q 702 809 692 821 Q 680 837 647 857 Q 631 867 613 859 Q 603 853 610 842 Q 619 815 599 734 L 587 692 Q 565 635 567 616 Q 568 601 584 612 Q 596 621 634 694 L 657 743 Z"></path>
+                            <path d="M 583 524 Q 715 548 721 553 Q 731 560 726 568 Q 720 580 692 589 Q 664 596 634 586 Q 582 571 528 558 L 513 556 Q 452 547 383 543 Q 347 539 372 521 Q 408 499 500 512 Q 509 513 519 514 L 583 524 Z"></path>
+                            <path d="M 581 365 Q 678 375 800 368 Q 825 364 835 371 Q 842 378 836 391 Q 829 404 788 428 Q 764 441 685 425 Q 660 424 583 411 L 526 401 Q 438 388 352 364 Q 336 357 332 363 Q 328 367 331 377 Q 347 438 355 454 Q 364 469 352 481 Q 334 506 305 520 Q 292 526 282 519 Q 276 513 284 496 Q 299 466 293 426 Q 280 377 257 357 Q 244 342 248 330 Q 255 308 273 290 Q 285 278 304 291 Q 365 333 488 352 L 581 365 Z"></path>
+                            <path d="M 526 313 Q 526 213 526 67 Q 526 30 515 15 Q 502 8 471 15 Q 446 19 416 25 Q 404 26 405 20 Q 406 13 417 4 Q 487 -42 531 -80 Q 544 -89 557 -72 Q 594 -12 588 60 Q 579 267 581 365 L 583 411 Q 583 448 588 483 Q 594 510 588 520 Q 587 523 583 524 L 528 558 Q 516 559 513 556 C 512 556 514 544 519 514 Q 525 496 526 401 L 526 313 Z"></path>
+                            <path d="M 488 352 Q 434 214 163 48 Q 144 36 161 33 Q 197 30 296 83 Q 371 131 443 206 Q 455 221 526 313 C 564 362 509 401 488 352 Z"></path>
+                        </g>
+                    </svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg><use href="#char4"></use></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                    <svg></svg>
+                </div>
+            </div>
+        </div>
+        <hr class="my-8 opacity-0">
+        <div id="english" class="flex flex-col max-w-2xl mx-auto">
+            <code class="hidden">How are you I am fine</code>
+            <div class="flex w-100 justify-between">
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-h.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-w.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-r.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-y.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-u.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-i.png">
+</div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-m.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-f.png">
+                    <img class="letter" src="../../Generator/images/lower-i.png">
+                    <img class="letter" src="../../Generator/images/lower-n.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+            </div>
+
+            <div class="flex w-100 justify-between">
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-h.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-w.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-r.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-y.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-u.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-i.png">
+</div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-m.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-f.png">
+                    <img class="letter" src="../../Generator/images/lower-i.png">
+                    <img class="letter" src="../../Generator/images/lower-n.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+            </div>
+
+            <div class="flex w-100 justify-between">
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-h.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-w.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-r.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-y.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-u.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-i.png">
+</div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-m.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-f.png">
+                    <img class="letter" src="../../Generator/images/lower-i.png">
+                    <img class="letter" src="../../Generator/images/lower-n.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+            </div>
+
+            <div class="flex w-100 justify-between">
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-h.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-w.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-r.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-y.png">
+                    <img class="letter" src="../../Generator/images/lower-o.png">
+                    <img class="letter" src="../../Generator/images/lower-u.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/cap-i.png">
+</div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-a.png">
+                    <img class="letter" src="../../Generator/images/lower-m.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lower-f.png">
+                    <img class="letter" src="../../Generator/images/lower-i.png">
+                    <img class="letter" src="../../Generator/images/lower-n.png">
+                    <img class="letter" src="../../Generator/images/lower-e.png">
+                </div>
+            </div>
+
+            <div class="flex w-100 justify-between">
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/dot-h.png">
+                    <img class="letter" src="../../Generator/images/lowdot-o.png">
+                    <img class="letter" src="../../Generator/images/lowdot-w.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-a.png">
+                    <img class="letter" src="../../Generator/images/lowdot-r.png">
+                    <img class="letter" src="../../Generator/images/lowdot-e.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-y.png">
+                    <img class="letter" src="../../Generator/images/lowdot-o.png">
+                    <img class="letter" src="../../Generator/images/lowdot-u.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/dot-i.png">
+</div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-a.png">
+                    <img class="letter" src="../../Generator/images/lowdot-m.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-f.png">
+                    <img class="letter" src="../../Generator/images/lowdot-i.png">
+                    <img class="letter" src="../../Generator/images/lowdot-n.png">
+                    <img class="letter" src="../../Generator/images/lowdot-e.png">
+                </div>
+            </div>
+
+            <div class="flex w-100 justify-between">
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/dot-h.png">
+                    <img class="letter" src="../../Generator/images/lowdot-o.png">
+                    <img class="letter" src="../../Generator/images/lowdot-w.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-a.png">
+                    <img class="letter" src="../../Generator/images/lowdot-r.png">
+                    <img class="letter" src="../../Generator/images/lowdot-e.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-y.png">
+                    <img class="letter" src="../../Generator/images/lowdot-o.png">
+                    <img class="letter" src="../../Generator/images/lowdot-u.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/dot-i.png">
+</div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-a.png">
+                    <img class="letter" src="../../Generator/images/lowdot-m.png">
+                </div>
+                <div class="flex word">
+                    <img class="letter" src="../../Generator/images/lowdot-f.png">
+                    <img class="letter" src="../../Generator/images/lowdot-i.png">
+                    <img class="letter" src="../../Generator/images/lowdot-n.png">
+                    <img class="letter" src="../../Generator/images/lowdot-e.png">
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        path {
+            --is-current: clamp(0,
+                    calc(1 - (var(--char-index) - var(--stroke-index)) * (var(--char-index) - var(--stroke-index))),
+                    1);
+            --is-past: clamp(0,
+                    calc(var(--char-index) - var(--stroke-index)),
+                    1);
+            --is-next: clamp(0,
+                    calc(var(--stroke-index) - var(--char-index)),
+                    1);
+
+            --stroke-color: rgba(calc(85 * var(--is-past) + 187 * var(--is-current) + 68 * var(--is-gray)),
+                    calc(85 * var(--is-past) + 68 * var(--is-current) + 68 * var(--is-gray)),
+                    calc(85 * var(--is-past) + 68 * var(--is-current) + 68 * var(--is-gray)),
+                    calc(1 - var(--is-next)));
+            fill: var(--stroke-color);
+        }
+        :root {
+            --is-gray: 0;
+            --char-index: 100;
+        }
+        .write-them-down {
+            --is-gray: 1;
+        }
+        #char svg {
+            display: inline-block;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAP1BMVEUAAABFoFBGoFBGoFBGoVFGn1BDn1JEoVNFp1hEoE9En1FHoVJKoldFoE9GoFBFoFBGn1NGoE9HoU9GoVBEn1Jj1l/OAAAAFXRSTlMAMma7X201CQUsIRUNs6uPKKF6STipww1qAAABtklEQVRo3u2b2Y6DMAxFfQnD2pbO8v/fOlKL5JFoUZMmXpict4qSIyEwxrEpgFJpGkplIEKAvBiXm7mTFa9KNkuJWcjmwuKNDouYeHNTiYn7M0hFTD1V9FhAOiAUNaPdfbQLwIsLm3npcub0hRHmiACS8/aZqYB43HiFQuZpJFkxU8XP+IGSGAF5xGOvE7cRxiyhpuwifJK8d3u1RRfAZPn1/pwWVDEcMv8yKYmngFhxXyxu74txzmbuIsT89wJmFid4080sLp8g4+uh2E6cHC4gHQaq+ObTYM0ADRWBw0PEgVLmphHxsoLFIl6WnFgsGidXL4uvsvGZxcOVXsBRslfFd75VoydmEoTNbz2/7Ur8b4SAN87/WKGVV3+v4uTzBS71UW6uyMfpAAHkX4t3XouHSAQiUx/3yV5keus+oY/9hPH/0VYxxEBxmC03RRbY3JcU44uovsvGKYVy31sDk9mcq5KK/qZmjm1cTxvXCJ3XFoH7Ik7aMTI2oDhpubEdMqt4v3XOarNgyfZIiw2hDw/7br29LW6uzXmp3/sVKwMa6SMpekM4emNHeoNWWqNlesN0auODvzsxCat6cG0IAAAAAElFTkSuQmCC");
+            background-size: contain;
+            border: 1px solid rgba(70, 160, 80, 0.5);
+            width: 54px;
+            height: 54px;
+        }
+        g {
+            transform: translate(5px, 43.671875px) scale(0.04296875, -0.04296875);
+        }
+        .sample>svg+svg {
+            margin-left: 4px;
+        }
+        #math {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 19px;
+            color: #666;
+        }
+        #math .question {
+            text-align: center;
+        }
+        #math .question:first-child {
+            text-align: left;
+        }
+        #math .question:last-child {
+            text-align: right;
+        }
+        #math .question>i {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            width: 36px;
+            height: 36px;
+            font-style: normal;
+        }
+        #math .box {
+            border-bottom: 1px solid #aaa;
+            color: blue;
+        }
+        .word {
+            margin-bottom: 35px;
+        }
+    </style>
+    <script>
+        let isAnswerVisible = false
+        document.addEventListener('keydown', evt => {
+            if (evt.code === 'ControlLeft') {
+                isAnswerVisible = !isAnswerVisible
+                const answers = document.querySelector('#answers').textContent.split(',')
+                document.querySelectorAll('.box')
+                    .forEach((box, idx) => box.innerText = isAnswerVisible ? answers[idx] : '')
+            }
+        })
+    </script>
+    <script>
+        const injectedStyles = Array.from({ length: 100 })
+            .map(it => it + 1)
+            .map((_, idx) =>
+                `.sample > svg:nth-child(${idx}) { --char-index: ${idx}; }`
+                + `path:nth-child(${idx}) { --stroke-index: ${idx}; }`
+            )
+            .join('\n')
+        document.querySelector('#injected')?.remove()
+        document.head.insertAdjacentHTML('beforeend', `<style id="injected">${injectedStyles}</style>`)
+    </script>
+</body>
+</html>
