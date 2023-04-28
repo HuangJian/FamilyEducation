@@ -15,18 +15,29 @@
       <div class="w-full">
         <label class="block mb-1" for="char-to-practise">汉字：</label>
         <input class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-              type="text" id="char-to-practise" value="人大小多少"/>
+              type="text" id="char-to-practise" value="刻舟求剑"/>
       </div>
-      <div class="w-full" id="strokes"></div>
+      <div class="flex w-1/2 mt-1">
+        <label for="dashed-columns">描红列数：</label>
+        <input class="w-2/5 h-6 px-3 text-base placeholder-gray-600 border focus:shadow-outline"
+              type="number" id="dashed-columns" value="5"/>
+      </div>
+      <div class="flex w-1/2 mt-1">
+        <label for="empty-columns">空白列数：</label>
+        <input class="w-2/5 h-6 px-3 text-base placeholder-gray-600 border focus:shadow-outline"
+              type="number" id="empty-columns" value="6"/>
+      </div>
     </div>
+    <hr>
     <div class="flex flex-wrap">
       <div class="w-full">
         <label class="block mb-1" for="calculations">算式：</label>
-        <textarea id="calculations" rows="11"
-                  class="w-full h-64 px-3 py-2 text-base text-gray-700 placeholder-gray-600
+        <textarea id="calculations" rows="8"
+                  class="w-full h-40 px-3 py-2 text-base text-gray-700 placeholder-gray-600
                         border rounded-lg focus:shadow-outline"></textarea>
       </div>
     </div>
+    <hr>
     <div class="flex flex-wrap">
       <div class="w-full">
         <label class="block mb-1 w-full" for="english-to-practise">英文：</label>
@@ -36,7 +47,7 @@
       <div class="flex w-1/2 mt-1">
         <label for="dashed-rows">描红行数：</label>
         <input class="w-2/5 h-6 px-3 text-base placeholder-gray-600 border focus:shadow-outline"
-              type="number" id="dashed-rows" value="4"/>
+              type="number" id="dashed-rows" value="2"/>
       </div>
       <div class="flex w-1/2 mt-1">
         <label for="dotted-rows">空白行数：</label>
@@ -44,7 +55,7 @@
               type="number" id="dotted-rows" value="2"/>
       </div>
     </div>
-
+    <hr>
     <div>
       <div>
         <button class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-700 rounded-lg
@@ -81,9 +92,9 @@
 
   <section id="output" class="w-2/3 h-screen overflow-y-scroll p-1">
     <div id="math" class="flex flex-col max-w-2xl mx-auto"></div>
-    <hr class="my-2">
+    <hr class="my-4">
     <div id="char" class="flex flex-col max-w-2xl mx-auto"></div>
-    <hr class="my-8 opacity-0">
+    <hr class="my-4">
     <div id="english" class="flex flex-col max-w-2xl mx-auto"></div>
   </section>
 </body>
@@ -155,6 +166,9 @@
     transform: translate(5px, 43.671875px) scale(0.04296875, -0.04296875);
   }
 
+  .sample {
+    margin-top: -8px;
+  }
   .sample > svg + svg {
       margin-left: 4px;
   }
@@ -190,7 +204,7 @@
   }
 
   .word {
-      margin-bottom: 35px;
+      margin-bottom: 13px;
   }
 </style>
 </html>

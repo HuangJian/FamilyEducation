@@ -128,16 +128,12 @@ function makeEnglish() {
 }
 
 $('#calculations').value = `
-420+391=?,215+409=?,926+778=?
-724-95=?,971-600=?,1342-763=?
-57+?=803,249+?=789,1245+?=1650
-83*7=?,9*48=?,774*4=?
-459/3=?,504/8=?,918/6=?
----
-?-267=893-453,149+154+404+387=?
-790-279=?+331,501+528+389-1218=?
-229+?+395=993,1068+570-798-609=?
-278+?-583=467,1999-652-522-431=?
+656+740=?,1696-?=791,1512+?=1865
+82*7=?,8*238=?,1219*5=?
+750/6=?,2898/9=?,4276/4=?
+961-490=?+225,430+201+819-1367=?
+319+?-574=873,1230+941-562-1483=?
+?-659+526=760,3415-1608-632-951=?
 `.trim()
 
 // 处理复制粘贴时的格式错乱
@@ -210,7 +206,7 @@ function makeChars() {
           return `<div><svg><g>${pathArrayText}</g></svg></div>`
         })
 
-      $('#char').innerHTML = svgArray.join('<hr class="my-2">')
+      $('#char').innerHTML = svgArray.join('')
 
       layoutChar()
       $('#char').prepend(htmlToElement(`<code class="hidden">${char}</code>`))
@@ -257,7 +253,7 @@ function layoutChar() {
     const container = htmlToElement('<div class="write-them-down flex w-100 justify-between"></div>')
     char.parentElement.prepend(container)
 
-    const sample = htmlToElement('<div class="flex scale-[0.7] origin-left w-fit sample"></div>')
+    const sample = htmlToElement('<div class="flex scale-[0.6] origin-left w-fit sample"></div>')
     char.parentElement.prepend(sample)
 
     const id = `char${idx}`
@@ -267,8 +263,8 @@ function layoutChar() {
 
     Array.from({ length: g.querySelectorAll('path').length}, () => sample.prepend(ref.cloneNode(true)))
     container.appendChild(char)
-    Array.from({ length: 5 }, () => container.appendChild(ref.cloneNode(true)))
-    Array.from({ length: 5 }, () => container.appendChild(emptyBox.cloneNode(false)))
+    Array.from({ length: parseInt($('#dashed-columns').value) - 1 }, () => container.appendChild(ref.cloneNode(true)))
+    Array.from({ length: parseInt($('#empty-columns').value) }, () => container.appendChild(emptyBox.cloneNode(false)))
   })
 }
 
