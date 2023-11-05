@@ -128,12 +128,12 @@ function makeEnglish() {
 }
 
 $('#calculations').value = `
-656+740=?,1696-?=791,1512+?=1865
-82*7=?,8*238=?,1219*5=?
-750/6=?,2898/9=?,4276/4=?
-961-490=?+225,430+201+819-1367=?
-319+?-574=873,1230+941-562-1483=?
-?-659+526=760,3415-1608-632-951=?
+476+21=?,1608-?=343,1527+?=3234
+35*32=?,194*18=?,1311*5=?
+4779/9=?,6538/36=?,990/14=?
+989-473=?+225,635+860+1279-2081=?
+196+?-826=1229,2456+883-900-1440=?
+?-482+647=1396,4818-1264-673-2123=?
 `.trim()
 
 // 处理复制粘贴时的格式错乱
@@ -269,13 +269,12 @@ function layoutChar() {
 }
 
 const scriptToDisplayAnswers = `
-  let isAnswerVisible = false
   document.addEventListener('keydown', evt => {
     if (evt.code === 'ControlLeft') {
-      isAnswerVisible = !isAnswerVisible
+      let isAnswerVisible = document.querySelector('.box').innerText !== ''
       const answers = document.querySelector('#answers').textContent.split(',')
       document.querySelectorAll('.box')
-        .forEach((box, idx) => box.innerText = isAnswerVisible ? answers[idx] : '')
+        .forEach((box, idx) => box.innerText = isAnswerVisible ? '' : answers[idx])
     }
   })
 `
@@ -300,20 +299,23 @@ eval(scriptToInjectStyles)
 
 /**
  * 根据传入的数字随机修改后几位，生成一个新数字。
- * @param {传入的数字} seed
+ * @param {传入的数字，字符串格式} seed
  * @param {需修改的数字位数} digitsToChange
- * @param {允许生成的最小值} minValue
  * @param {需要能整除的数字} divideBy
+ * @param {是否需要保持位数不变} isKeepDigits
  * @returns 随机生成的新数字。
  */
-function randomNumber(seed, digitsToChange, minValue, divideBy) {
+function randomNumber(seed, digitsToChange, divideBy, isKeepDigits) {
   const num = parseInt(seed)
-  const max = Math.pow(10, digitsToChange) - 1
+  const range = Math.pow(10, digitsToChange)
+  const floor = num - num % range
+  let minimum = isKeepDigits ? Math.pow(10, digitsToChange - 1) : floor
+  minimum = Math.max(minimum, 4) // 不要生成小于4的乘数
 
   let ret
   do {
-    ret = num - num % (max + 1) + Math.floor(Math.random() * max)
-  } while(ret < minValue || (divideBy && ret % divideBy !== 0) || ret === num)
+    ret = floor + Math.floor(Math.random() * range)
+  } while(ret <= minimum || (divideBy && ret % divideBy !== 0))
   return `${ret}`
 }
 
@@ -324,23 +326,22 @@ function randomizeCalculations() {
   $('#calculations').value = fixCalculationsFormat()
     .split('\n')
     .map(line => line.split(',').map(item => {
-        let digitsToChange = 2 // // 只随机生成末两位，避免答案出现负数或者超过一千
-        let minValue = 11 // 避免出现 10 以下数字，难度过低
         let divideBy = NaN
 
         const isMultiply = item.includes('*')
         const isDivision = item.includes('/')
         if (isDivision) {
-          divideBy = parseInt(/(\d)=/.exec(item)[1]) // '528/8=?' => 8
+          divideBy = parseInt(/(\d+)=/.exec(item)[1]) // '528/28=?' => 28
         }
 
         return item.replace(/\d+/g, match => {
-          if ((isMultiply || isDivision) && match.length === 1) { // 乘数或者被除数，且只有个位数 → 不变
-            return match
-          } else if (match === '999') { // 最后一题暂时固定为 999 减去多个数，所以不处理 999。999-317-113-353=?
+          if (isDivision && parseInt(match) === divideBy) { // 除数不变
             return match
           }
-          return randomNumber(match, digitsToChange, minValue, divideBy)
+          // 乘除法: 所有数位均可变化，但要保持位数不变
+          // 加减法: 只随机生成末两位，避免答案出现负数或者超过一千
+          const digitsToChange = (isMultiply || isDivision) ? match.length : 2
+          return randomNumber(match, digitsToChange, divideBy, isDivision || isMultiply)
         })
       }).join(',')
     ).join('\n')
