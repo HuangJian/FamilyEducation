@@ -40,31 +40,7 @@ function calcMathAnswers() {
   return $('#calculations').value.replaceAll('---', '')
     .split(/[,\n]/g)
     .filter(it => it.length > 0)
-    .map(question => {
-      const isAnswerAtLeft = question.indexOf('?') < question.indexOf('=')
-
-      const isMulDiv = /[*/]/.test(question)
-      const text = isMulDiv ? question.replace('?', '1') : question.replace('?', '0') // 乘除法，把问号替换为 1
-      const numbers = [...execAll('+' + text, /[*/+-=\s]\d+/g)] // 前面加加号，便于正则表达式处理
-      const equalSignPosition = numbers.findIndex(it => it.startsWith('=')) // 找到等于号的位置，用于判断数字在等于号左边还是右边
-      const operatorForEqualSign = isMulDiv ? (isAnswerAtLeft ? '/' : '*') : (isAnswerAtLeft ? '-' : '+')
-
-      // ?*7=777 → +1 *7 /777
-      // 790-279=?+331 → +790 -279 -0 -331
-      // 229+?+395=993 → +229 +0 +395 -993
-      // 771-269=?+366 → +771-269 -0 -366
-      const expression = numbers.reduce((prev, curr, idx) => {
-        const isCurrentNumberAtLeft = equalSignPosition < 0 || idx < equalSignPosition
-        if (isCurrentNumberAtLeft) {
-          return `${prev} ${curr}`
-        }
-        // 当前处理的数字在等于号右边，需要翻转运算符
-        return `${prev} ${reverseOperator(curr, operatorForEqualSign)}`
-      }, '')
-
-      const answer = Math.abs(eval(expression)) // 加减法的问号在左边时，算出来负数，用 Math.abs 处理一下
-      return answer < 1.0 ? 1.0 / answer : answer // 问号是被除数和乘数时，算出来分数，改成倒数
-    })
+    .map(it => answer(it))
 }
 
 // 翻转运算符: +402 => -402
@@ -302,14 +278,13 @@ eval(scriptToInjectStyles)
  * @param {传入的数字，字符串格式} seed
  * @param {需修改的数字位数} digitsToChange
  * @param {需要能整除的数字} divideBy
- * @param {是否需要保持位数不变} isKeepDigits
  * @returns 随机生成的新数字。
  */
-function randomNumber(seed, digitsToChange, divideBy, isKeepDigits) {
+function randomNumber(seed, digitsToChange, divideBy) {
   const num = parseInt(seed)
   const range = Math.pow(10, digitsToChange)
   const floor = num - num % range
-  let minimum = isKeepDigits ? Math.pow(10, digitsToChange - 1) : floor
+  let minimum = Math.pow(10, digitsToChange - 1)
   minimum = Math.max(minimum, 4) // 不要生成小于4的乘数
 
   let ret
@@ -337,23 +312,77 @@ function randomizeCalculations() {
         if (isDivision) {
           previousDivideBy = /(\d+)=/.exec(item)[1] // '528/28=?' => '28'
           if (isRandomDivideBy) {
-            divideBy = randomNumber(previousDivideBy, previousDivideBy.length, NaN, true)
+            divideBy = randomNumber(previousDivideBy, previousDivideBy.length, NaN)
           } else {
             divideBy = parseInt(previousDivideBy)
           }
         }
 
-        return item.replace(/\d+/g, match => {
-          if (isDivision && match === previousDivideBy) {
-            return divideBy
-          }
-          // 乘除法: 所有数位均可变化，但要保持位数不变
-          // 加减法: 只随机生成末两位，避免答案出现负数或者超过一千
-          const digitsToChange = (isMultiply || isDivision) ? match.length : 2
-          return randomNumber(match, digitsToChange, divideBy, isDivision || isMultiply)
-        })
+        let newItem
+        do {
+          newItem = item.replace(/\d+/g, match => {
+            if (isDivision && match === previousDivideBy) {
+              return divideBy
+            }
+            const digitsToChange = ((isMultiply || isDivision) || !isKeepHundredsForPlus) ? match.length : 2
+            return randomNumber(match, digitsToChange, divideBy)
+          })
+        } while (answer(newItem) < 0)
+        return newItem
       }).join(',')
     ).join('\n')
 
-    makeMaths()
+  makeMaths()
+  toggleMathAnswersVisibility()
+
+  // testMathAnswer()
+}
+
+function answer(question) {
+  const isAnswerAtLeft = question.indexOf('?') < question.indexOf('=')
+
+  const isMulDiv = /[*/]/.test(question)
+  const text = isMulDiv ? question.replace('?', '1') : question.replace('?', '0') // 乘除法，把问号替换为 1
+  const numbers = [...execAll('+' + text, /[*/+-=\s]\d+/g)] // 前面加加号，便于正则表达式处理
+  const equalSignPosition = numbers.findIndex(it => it.startsWith('=')) // 找到等于号的位置，用于判断数字在等于号左边还是右边
+  const operatorForEqualSign = isMulDiv ? (isAnswerAtLeft ? '/' : '*') : (isAnswerAtLeft ? '-' : '+')
+
+  // ?*7=777 → +1 *7 /777
+  // 790-279=?+331 → +790 -279 -0 -331
+  // 229+?+395=993 → +229 +0 +395 -993
+  // 771-269=?+366 → +771-269 -0 -366
+  const expression = numbers.reduce((prev, curr, idx) => {
+    const isCurrentNumberAtLeft = equalSignPosition < 0 || idx < equalSignPosition
+    if (isCurrentNumberAtLeft) {
+      return `${prev} ${curr}`
+    }
+    // 当前处理的数字在等于号右边，需要翻转运算符
+    return `${prev} ${reverseOperator(curr, operatorForEqualSign)}`
+  }, '')
+
+  let answer = eval(expression)
+  // 加减法的问号在最左边时，算出来负数，需要处理一下
+  const shouldBeReversed = /^\?\-/.test(question) //减法的问号在最左边
+    || (/\+/.test(question) && isAnswerAtLeft)// 加法的问号在等于号左边
+  if (shouldBeReversed) {
+    answer = -answer
+  }
+  // TODO: 问号是被除数和乘数时 => 算出来分数，改成倒数
+  // console.log(`${question} => ${answer}, expression = ${expression}`)
+  return answer
+}
+
+function testMathAnswer() {
+  const testData = [
+    ['1602-?=323', 1279],
+    ['?-324=456', 780],
+    ['1538+?=3241', 1703],
+    ['2428+887-905-1484=?', 926],
+  ]
+  for (const item of testData) {
+    const theAnswer = answer(item[0])
+    if (theAnswer !== item[1]) {
+      console.error(`${item[0]} should get ${item[1]}, but got ${theAnswer}`)
+    }
+  }
 }
