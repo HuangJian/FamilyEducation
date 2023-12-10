@@ -323,20 +323,29 @@ function randomNumber(seed, digitsToChange, divideBy, isKeepDigits) {
  * 生成随机计算题。
  */
 function randomizeCalculations() {
+  const isRandomDivideBy = $('#random-divide-by').checked
+  const isKeepHundredsForPlus = $('#keep-hundreds').checked
+
   $('#calculations').value = fixCalculationsFormat()
     .split('\n')
     .map(line => line.split(',').map(item => {
         let divideBy = NaN
+        let previousDivideBy = NaN
 
         const isMultiply = item.includes('*')
         const isDivision = item.includes('/')
         if (isDivision) {
-          divideBy = parseInt(/(\d+)=/.exec(item)[1]) // '528/28=?' => 28
+          previousDivideBy = /(\d+)=/.exec(item)[1] // '528/28=?' => '28'
+          if (isRandomDivideBy) {
+            divideBy = randomNumber(previousDivideBy, previousDivideBy.length, NaN, true)
+          } else {
+            divideBy = parseInt(previousDivideBy)
+          }
         }
 
         return item.replace(/\d+/g, match => {
-          if (isDivision && parseInt(match) === divideBy) { // 除数不变
-            return match
+          if (isDivision && match === previousDivideBy) {
+            return divideBy
           }
           // 乘除法: 所有数位均可变化，但要保持位数不变
           // 加减法: 只随机生成末两位，避免答案出现负数或者超过一千
