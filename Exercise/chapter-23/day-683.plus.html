@@ -1,0 +1,172 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com/3.0.12"></script>
+</head>
+<body>
+    <section id="output">
+        <div id="math" class="flex flex-col max-w-2xl mx-auto">
+            <code class="hidden">460+23=?,4582-?=229,4692+?=8246
+                841*5=?,14*82=?,205*94=?
+                6112/8=?,118/59=?,5727/83=?
+                809-243=?+142,5488+748+7341-8853=?
+                998+?-104=8470,8187+593-3858-3566=?
+                ?-5929+318=3598,5066-1742-367-2014=?
+                ---
+                726+57=?,7046-?=441,4656+?=6909
+                278*7=?,56*55=?,555*29=?
+                1710/6=?,602/43=?,4067/83=?
+                970-338=?+471,6604+477+7191-3122=?
+                877+?-448=3687,6228+942-1062-2271=?
+                ?-5397+666=9033,8517-2682-520-5224=?
+                ---
+                239+94=?,9019-?=352,4600+?=7758
+                848*5=?,54*78=?,363*50=?
+                3264/6=?,551/19=?,8954/74=?
+                922-421=?+387,3178+664+5583-1653=?
+                564+?-576=7192,7791+292-1883-4360=?
+                ?-7602+186=2519,8023-2481-974-2205=?</code>
+            <code class="hidden"
+                  id="answers">483,4353,3554,4205,1148,19270,764,2,69,424,4724,7576,1356,9209,943,783,6605,2253,1946,3080,16095,285,14,49,161,11150,3258,3837,13764,91,333,8667,3158,4240,4212,18150,544,29,121,114,7772,7204,1840,9935,2363</code>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>460</i><i>+</i><i>23</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>4582</i><i>-</i><i class="box"></i><i>=</i><i>229</i></div>
+                <div class="question flex-1"><i>4692</i><i>+</i><i class="box"></i><i>=</i><i>8246</i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>841</i><i>×</i><i>5</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>14</i><i>×</i><i>82</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>205</i><i>×</i><i>94</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>6112</i><i>÷</i><i>8</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>118</i><i>÷</i><i>59</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>5727</i><i>÷</i><i>83</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>809</i><i>-</i><i>243</i><i>=</i><i class="box"></i><i>+</i><i>142</i>
+                </div>
+                <div class="question flex-1">
+                    <i>5488</i><i>+</i><i>748</i><i>+</i><i>7341</i><i>-</i><i>8853</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>998</i><i>+</i><i class="box"></i><i>-</i><i>104</i><i>=</i><i>8470</i>
+                </div>
+                <div class="question flex-1">
+                    <i>8187</i><i>+</i><i>593</i><i>-</i><i>3858</i><i>-</i><i>3566</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i class="box"></i><i>-</i><i>5929</i><i>+</i><i>318</i><i>=</i><i>3598</i>
+                </div>
+                <div class="question flex-1">
+                    <i>5066</i><i>-</i><i>1742</i><i>-</i><i>367</i><i>-</i><i>2014</i><i>=</i><i class="box"></i></div>
+            </div>
+            <hr class="my-12">
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>726</i><i>+</i><i>57</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>7046</i><i>-</i><i class="box"></i><i>=</i><i>441</i></div>
+                <div class="question flex-1"><i>4656</i><i>+</i><i class="box"></i><i>=</i><i>6909</i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>278</i><i>×</i><i>7</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>56</i><i>×</i><i>55</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>555</i><i>×</i><i>29</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>1710</i><i>÷</i><i>6</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>602</i><i>÷</i><i>43</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>4067</i><i>÷</i><i>83</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>970</i><i>-</i><i>338</i><i>=</i><i class="box"></i><i>+</i><i>471</i>
+                </div>
+                <div class="question flex-1">
+                    <i>6604</i><i>+</i><i>477</i><i>+</i><i>7191</i><i>-</i><i>3122</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>877</i><i>+</i><i class="box"></i><i>-</i><i>448</i><i>=</i><i>3687</i>
+                </div>
+                <div class="question flex-1">
+                    <i>6228</i><i>+</i><i>942</i><i>-</i><i>1062</i><i>-</i><i>2271</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i class="box"></i><i>-</i><i>5397</i><i>+</i><i>666</i><i>=</i><i>9033</i>
+                </div>
+                <div class="question flex-1">
+                    <i>8517</i><i>-</i><i>2682</i><i>-</i><i>520</i><i>-</i><i>5224</i><i>=</i><i class="box"></i></div>
+            </div>
+            <hr class="my-12">
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>239</i><i>+</i><i>94</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>9019</i><i>-</i><i class="box"></i><i>=</i><i>352</i></div>
+                <div class="question flex-1"><i>4600</i><i>+</i><i class="box"></i><i>=</i><i>7758</i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>848</i><i>×</i><i>5</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>54</i><i>×</i><i>78</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>363</i><i>×</i><i>50</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>3264</i><i>÷</i><i>6</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>551</i><i>÷</i><i>19</i><i>=</i><i class="box"></i></div>
+                <div class="question flex-1"><i>8954</i><i>÷</i><i>74</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>922</i><i>-</i><i>421</i><i>=</i><i class="box"></i><i>+</i><i>387</i>
+                </div>
+                <div class="question flex-1">
+                    <i>3178</i><i>+</i><i>664</i><i>+</i><i>5583</i><i>-</i><i>1653</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i>564</i><i>+</i><i class="box"></i><i>-</i><i>576</i><i>=</i><i>7192</i>
+                </div>
+                <div class="question flex-1">
+                    <i>7791</i><i>+</i><i>292</i><i>-</i><i>1883</i><i>-</i><i>4360</i><i>=</i><i class="box"></i></div>
+            </div>
+            <div class="flex origin-left mt-2">
+                <div class="question flex-1"><i class="box"></i><i>-</i><i>7602</i><i>+</i><i>186</i><i>=</i><i>2519</i>
+                </div>
+                <div class="question flex-1">
+                    <i>8023</i><i>-</i><i>2481</i><i>-</i><i>974</i><i>-</i><i>2205</i><i>=</i><i class="box"></i></div>
+            </div>
+        </div>
+    </section>
+    <style>
+        #math {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 19px;
+            color: #666;
+        }
+        #math .question {
+            text-align: center;
+        }
+        #math .question:first-child {
+            text-align: left;
+        }
+        #math .question:last-child {
+            text-align: right;
+        }
+        #math .question>i {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            width: 36px;
+            height: 36px;
+            font-style: normal;
+        }
+        #math .box {
+            border-bottom: 1px solid #aaa;
+            color: blue;
+        }
+    </style>
+    <script>
+        document.addEventListener('keydown', evt => {
+            if (evt.code === 'ControlLeft') {
+                let isAnswerVisible = document.querySelector('.box').innerText !== ''
+                const answers = document.querySelector('#answers').textContent.split(',')
+                document.querySelectorAll('.box')
+                    .forEach((box, idx) => box.innerText = isAnswerVisible ? '' : answers[idx])
+            }
+        })
+    </script>
+</body>
+</html>
