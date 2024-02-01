@@ -319,6 +319,7 @@ function randomizeCalculations() {
         }
 
         let newItem
+        let attempts = 0
         do {
           newItem = item.replace(/\d+/g, match => {
             if (isDivision && match === previousDivideBy) {
@@ -327,7 +328,8 @@ function randomizeCalculations() {
             const digitsToChange = ((isMultiply || isDivision) || !isKeepHundredsForPlus) ? match.length : 2
             return randomNumber(match, digitsToChange, divideBy)
           })
-        } while (answer(newItem) < 0)
+          ++attempts
+        } while (answer(newItem) < 0 && attempts < 100)
         return newItem
       }).join(',')
     ).join('\n')
@@ -363,12 +365,12 @@ function answer(question) {
   let answer = eval(expression)
   // 加减法的问号在最左边时，算出来负数，需要处理一下
   const shouldBeReversed = /^\?\-/.test(question) //减法的问号在最左边
-    || (/\+/.test(question) && isAnswerAtLeft)// 加法的问号在等于号左边
+    || (/\+\?/.test(question) && isAnswerAtLeft)// 加法的问号在等于号左边
   if (shouldBeReversed) {
     answer = -answer
   }
   // TODO: 问号是被除数和乘数时 => 算出来分数，改成倒数
-  // console.log(`${question} => ${answer}, expression = ${expression}`)
+  // console.log(`${question} => ${answer}, expression = ${expression}, shouldBeReversed = ${shouldBeReversed}`)
   return answer
 }
 
@@ -378,6 +380,7 @@ function testMathAnswer() {
     ['?-324=456', 780],
     ['1538+?=3241', 1703],
     ['2428+887-905-1484=?', 926],
+    ['596-?+766=9817', -8455],
   ]
   for (const item of testData) {
     const theAnswer = answer(item[0])
