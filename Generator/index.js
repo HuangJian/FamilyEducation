@@ -70,6 +70,8 @@ function make() {
   makeEnglish()
   makeMaths()
   makeChars()
+
+  // testMathAnswer()
 }
 
 function makeEnglish() {
@@ -336,8 +338,6 @@ function randomizeCalculations() {
 
   makeMaths()
   toggleMathAnswersVisibility()
-
-  // testMathAnswer()
 }
 
 function answer(question) {
@@ -363,8 +363,7 @@ function answer(question) {
   }, '')
 
   let answer = eval(expression)
-  // 加减法的问号在最左边时，算出来负数，需要处理一下
-  const shouldBeReversed = /^\?\-/.test(question) //减法的问号在最左边
+  const shouldBeReversed = /^\?[+-]/.test(question) //加减法的问号在最左边
     || (/\+\?/.test(question) && isAnswerAtLeft)// 加法的问号在等于号左边
   if (shouldBeReversed) {
     answer = -answer
@@ -381,6 +380,7 @@ function testMathAnswer() {
     ['1538+?=3241', 1703],
     ['2428+887-905-1484=?', 926],
     ['596-?+766=9817', -8455],
+    ['?+6373-3804=1946', -623],
   ]
   for (const item of testData) {
     const theAnswer = answer(item[0])
