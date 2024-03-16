@@ -37,7 +37,9 @@ function toggleMathAnswersVisibility() {
 
 let answers = []
 function calcMathAnswers() {
-  return $('#calculations').value.replaceAll('---', '')
+  return $('#calculations').value
+    .replaceAll('---', '')
+    .replaceAll('===', '')
     .split(/[,\n]/g)
     .filter(it => it.length > 0)
     .map(it => answer(it))
@@ -142,9 +144,12 @@ function makeMaths() {
 
 // '83*7=?,9*48=?,774*4=?' => <div class="question flex-1">xxx</div>
 // '---' => <hr class="mt-2">
+// '===' => <hr class="my-12">
 function convertLineToHtml(line) {
   if (line.startsWith('---')) {
     return '<hr class="mt-2">'
+  } else if (line.startsWith('===')) {
+    return '<hr class="my-12">'
   }
 
   return `
