@@ -50,8 +50,8 @@ function reverseOperator(number, operatorForEqualSign) {
   const operatorMap = {
     '+': '-',
     '-': '+',
-    '*': '/',
-    '/': '*',
+    '*': '*', // 乘除法后一个数字不需要翻转运算符
+    '/': '/',
     '=': operatorForEqualSign,
   }
   return operatorMap[number[0]] + number.substr(1)
@@ -108,12 +108,12 @@ function makeEnglish() {
 }
 
 $('#calculations').value = `
-476+21=?,1608-?=343,1527+?=3234
-35*32=?,194*18=?,1311*5=?
-4779/9=?,6538/36=?,990/14=?
-989-473=?+225,635+860+1279-2081=?
-196+?-826=1229,2456+883-900-1440=?
-?-482+647=1396,4818-1264-673-2123=?
+282+73=?,3737-?=374,1110+?=5143
+218*9=?,49*83=?,587*28=?
+3976/8=?,495/33=?,8502/39=?
+523-?=72*6,8264+364+831-6402=?
+5946+38*12=?,5272+6400-7674-881=?
+8624-6976/8=?,5881-305-3778-1106=?
 `.trim()
 
 // 处理复制粘贴时的格式错乱
@@ -348,7 +348,7 @@ function randomizeCalculations() {
 function answer(question) {
   const isAnswerAtLeft = question.indexOf('?') < question.indexOf('=')
 
-  const isMulDiv = /[*/]/.test(question)
+  const isMulDiv = /[*/]\?/.test(question) || /\?[*/]/.test(question)
   const text = isMulDiv ? question.replace('?', '1') : question.replace('?', '0') // 乘除法，把问号替换为 1
   const numbers = [...execAll('+' + text, /[*/+-=\s]\d+/g)] // 前面加加号，便于正则表达式处理
   const equalSignPosition = numbers.findIndex(it => it.startsWith('=')) // 找到等于号的位置，用于判断数字在等于号左边还是右边
@@ -358,6 +358,7 @@ function answer(question) {
   // 790-279=?+331 → +790 -279 -0 -331
   // 229+?+395=993 → +229 +0 +395 -993
   // 771-269=?+366 → +771-269 -0 -366
+  // 300-?=25*4 → +300-0-25*4
   const expression = numbers.reduce((prev, curr, idx) => {
     const isCurrentNumberAtLeft = equalSignPosition < 0 || idx < equalSignPosition
     if (isCurrentNumberAtLeft) {
@@ -386,6 +387,7 @@ function testMathAnswer() {
     ['2428+887-905-1484=?', 926],
     ['596-?+766=9817', -8455],
     ['?+6373-3804=1946', -623],
+    ['300-?=25*4', 200],
   ]
   for (const item of testData) {
     const theAnswer = answer(item[0])
