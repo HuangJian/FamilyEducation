@@ -344,28 +344,34 @@ function randomizeCalculations() {
 }
 
 function calculateExpression(expression) {
+  // Remove any whitespace from the expression
   expression = expression.replace(/\s/g, '')
 
+  // Split the expression into left and right sides
   const [leftSide, rightSide] = expression.split('=')
-  let unknownSide = leftSide.includes('?') ? leftSide : rightSide
+
+  // Determine the unknown side and the known side
+  const unknownSide = leftSide.includes('?') ? leftSide : rightSide
   const knownSide = leftSide.includes('?') ? rightSide : leftSide
 
+  // Check if the unknown value is in a negative expression
   // 50-?=20, 100-20*?=200, 100-200/?=50
   const isNegative = /-[\d*/]*\?/.test(unknownSide)
 
-  // extract the multiplication & division part: 100-30/?=20 => 30/?
-  const mulDivPart = (/((\d+[*/])*\?([*/]\d+)*)/.exec(unknownSide))[0]
-  if (mulDivPart.length > 2) {
-      unknownSide = unknownSide.replace(mulDivPart, '0')
-  } else {
-      unknownSide = unknownSide.replace('?', '0')
+  // Extract the multiplication and division part
+  // 100-30/?=20 => 30/?
+  const mulDivPart = /((\d+[*/])*\?([*/]\d+)*)/.exec(unknownSide)?.[0]
+  const hasMultiplicationOrDivision = mulDivPart && mulDivPart.length > 2
+
+  // Calculate the initial result
+  let result = eval(knownSide) - eval(unknownSide.replace(mulDivPart || '?', '0'))
+
+  // Handle the multiplication and division part
+  if (hasMultiplicationOrDivision) {
+    result = calculateSimpleMulDivExpression(mulDivPart, result)
   }
 
-  let result = eval(knownSide) - eval(unknownSide)
-  if (mulDivPart) {
-      result = calculateSimpleMulDivExpression(mulDivPart, result)
-  }
-
+  // Return the final result, taking into account the negative expression
   return isNegative ? -result : result
 }
 
@@ -375,9 +381,6 @@ function calculateExpression(expression) {
 function calculateSimpleMulDivExpression(expression, answer) {
   if (/\d\/\?/.test(expression)) {
       return eval(expression.replace('?', '1')) / answer
-  }
-  if (/\?\/\d/.test(expression)) {
-      return answer / eval(expression.replace('?', '1'))
   }
   return answer / eval(expression.replace('?', '1'))
 }
