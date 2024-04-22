@@ -12,9 +12,9 @@ function $$(selector) {
  * @return {Element}
  */
 function htmlToElement(html) {
-  var template = document.createElement('template');
-  template.innerHTML = html.trim(); // Never return a text node of whitespace as the result
-  return template.content.firstChild;
+  var template = document.createElement('template')
+  template.innerHTML = html.trim() // Never return a text node of whitespace as the result
+  return template.content.firstChild
 }
 
 window.onerror = function(message, source, lineno, colno, error) {
@@ -42,7 +42,7 @@ function calcMathAnswers() {
     .replaceAll('===', '')
     .split(/[,\n]/g)
     .filter(it => it.length > 0)
-    .map(it => answer(it))
+    .map(it => calculateExpression(it))
 }
 
 // 翻转运算符: +402 => -402
@@ -72,8 +72,6 @@ function make() {
   makeEnglish()
   makeMaths()
   makeChars()
-
-  // testMathAnswer()
 }
 
 function makeEnglish() {
@@ -336,7 +334,7 @@ function randomizeCalculations() {
             return randomNumber(match, digitsToChange, divideBy)
           })
           ++attempts
-        } while (answer(newItem) < 0 && attempts < 100)
+        } while (calculateExpression(newItem) < 0 && attempts < 100)
         return newItem
       }).join(',')
     ).join('\n')
@@ -345,54 +343,41 @@ function randomizeCalculations() {
   toggleMathAnswersVisibility()
 }
 
-function answer(question) {
-  const isAnswerAtLeft = question.indexOf('?') < question.indexOf('=')
+function calculateExpression(expression) {
+  expression = expression.replace(/\s/g, '')
 
-  const isMulDiv = /[*/]\?/.test(question) || /\?[*/]/.test(question)
-  const text = isMulDiv ? question.replace('?', '1') : question.replace('?', '0') // 乘除法，把问号替换为 1
-  const numbers = [...execAll('+' + text, /[*/+-=\s]\d+/g)] // 前面加加号，便于正则表达式处理
-  const equalSignPosition = numbers.findIndex(it => it.startsWith('=')) // 找到等于号的位置，用于判断数字在等于号左边还是右边
-  const operatorForEqualSign = isMulDiv ? (isAnswerAtLeft ? '/' : '*') : (isAnswerAtLeft ? '-' : '+')
+  const [leftSide, rightSide] = expression.split('=')
+  let unknownSide = leftSide.includes('?') ? leftSide : rightSide
+  const knownSide = leftSide.includes('?') ? rightSide : leftSide
 
-  // ?*7=777 → +1 *7 /777
-  // 790-279=?+331 → +790 -279 -0 -331
-  // 229+?+395=993 → +229 +0 +395 -993
-  // 771-269=?+366 → +771-269 -0 -366
-  // 300-?=25*4 → +300-0-25*4
-  const expression = numbers.reduce((prev, curr, idx) => {
-    const isCurrentNumberAtLeft = equalSignPosition < 0 || idx < equalSignPosition
-    if (isCurrentNumberAtLeft) {
-      return `${prev} ${curr}`
-    }
-    // 当前处理的数字在等于号右边，需要翻转运算符
-    return `${prev} ${reverseOperator(curr, operatorForEqualSign)}`
-  }, '')
+  // 50-?=20, 100-20*?=200, 100-200/?=50
+  const isNegative = /-[\d*/]*\?/.test(unknownSide)
 
-  let answer = eval(expression)
-  const shouldBeReversed = /^\?[+-]/.test(question) //加减法的问号在最左边
-    || (/\+\?/.test(question) && isAnswerAtLeft)// 加法的问号在等于号左边
-  if (shouldBeReversed) {
-    answer = -answer
+  // extract the multiplication & division part: 100-30/?=20 => 30/?
+  const mulDivPart = (/((\d+[*/])*\?([*/]\d+)*)/.exec(unknownSide))[0]
+  if (mulDivPart.length > 2) {
+      unknownSide = unknownSide.replace(mulDivPart, '0')
+  } else {
+      unknownSide = unknownSide.replace('?', '0')
   }
-  // TODO: 问号是被除数和乘数时 => 算出来分数，改成倒数
-  // console.log(`${question} => ${answer}, expression = ${expression}, shouldBeReversed = ${shouldBeReversed}`)
-  return answer
+
+  let result = eval(knownSide) - eval(unknownSide)
+  if (mulDivPart) {
+      result = calculateSimpleMulDivExpression(mulDivPart, result)
+  }
+
+  return isNegative ? -result : result
 }
 
-function testMathAnswer() {
-  const testData = [
-    ['1602-?=323', 1279],
-    ['?-324=456', 780],
-    ['1538+?=3241', 1703],
-    ['2428+887-905-1484=?', 926],
-    ['596-?+766=9817', -8455],
-    ['?+6373-3804=1946', -623],
-    ['300-?=25*4', 200],
-  ]
-  for (const item of testData) {
-    const theAnswer = answer(item[0])
-    if (theAnswer !== item[1]) {
-      console.error(`${item[0]} should get ${item[1]}, but got ${theAnswer}`)
-    }
+// expression: 100/?, answer: 2 => result: 50
+// expression: ?/4, answer: 25 => result: 100
+// expression: 20*?, answer: 100 => result: 5
+function calculateSimpleMulDivExpression(expression, answer) {
+  if (/\d\/\?/.test(expression)) {
+      return eval(expression.replace('?', '1')) / answer
   }
+  if (/\?\/\d/.test(expression)) {
+      return answer / eval(expression.replace('?', '1'))
+  }
+  return answer / eval(expression.replace('?', '1'))
 }
