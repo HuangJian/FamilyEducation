@@ -26,4 +26,4 @@ read_vars $file
 content=$(sed '/^$/q' $file)
 # echo $content
 
-seq $times | xargs -I{} bash -c "say '${content}' -r ${speed} && sleep 1"
+seq $times | xargs -I{} bash -c "say \"${content}\" -r ${speed} && sleep 1"
