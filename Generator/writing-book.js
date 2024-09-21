@@ -3,9 +3,9 @@ sampleRow.classList.remove('hidden')
 const sampleBox = sampleRow.querySelector('.box')
 
 document.querySelector('#words').value =
-    '采桑 除草 割麦 打谷 积肥 锄草 收获 葡萄 紫色 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
+    '百战百胜 割麦 打谷 积肥 锄草 勇往直前 紫色 笑眯眯 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
 
-const rowsPerPage = 16
+const rowsPerSheet = 16
 const maxColumns = 8
 const emptyRow = sampleRow.cloneNode(false)
 Array.from({ length: maxColumns }, () => {
@@ -15,13 +15,28 @@ Array.from({ length: maxColumns }, () => {
 make()
 
 function make() {
+    document.querySelector('#printable').innerHTML = ''
+    document.querySelector('#screen').innerHTML = ''
+
     document.querySelector('#words').value.trim()
         .split(/\s+/)
         .forEach(printWord)
+    layoutScreen()
 }
 
 function doPrint() {
     window.print()
+}
+
+/**
+ * 将 html 字符串转为 DOM 节点：https://stackoverflow.com/a/35385518/474231 。
+ * @param {String} HTML representing a single element
+ * @return {Element}
+ */
+function htmlToElement(html) {
+    var template = document.createElement('template')
+    template.innerHTML = html.trim() // Never return a text node of whitespace as the result
+    return template.content.firstChild
 }
 
 function printWord(text) {
@@ -76,4 +91,25 @@ function printChars(chars, row, extraClass) {
 
 function addRow(row) {
     document.querySelector('#printable').appendChild(row)
+}
+
+function layoutScreen() {
+    const screen = document.querySelector('#screen')
+
+    const sheetHeight = screen.offsetHeight * .9
+    const boxSize = (sheetHeight + .0) / rowsPerSheet - 2
+    document.documentElement.style.setProperty('--box-size', `${boxSize}px`);
+
+    let sheet
+    const sheetHtml = `<div class="sheet w-1/2 flex-col mx-auto"></div>`
+
+    screen.innerHTML = ''
+    document.querySelectorAll('#printable .row').forEach((row, idx) => {
+        if (idx % rowsPerSheet === 0) {
+            sheet = htmlToElement(sheetHtml)
+            screen.appendChild(sheet)
+        }
+
+        sheet.appendChild(row.cloneNode(true))
+    })
 }
