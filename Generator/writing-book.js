@@ -3,7 +3,7 @@ sampleRow.classList.remove('hidden')
 const sampleBox = sampleRow.querySelector('.box')
 
 document.querySelector('#words').value =
-    '百战百胜 割麦 打谷 积肥 锄草 勇往直前 紫色 笑眯眯 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
+    '2 百战百胜 割麦 打谷 积肥 锄草 勇往直前 紫色 笑眯眯 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
 
 const rowsPerSheet = 16
 const maxColumns = 8
@@ -41,6 +41,15 @@ function htmlToElement(html) {
 
 function printWord(text) {
     const row = sampleRow.cloneNode(false)
+
+    // 纯数字，则增加几个空白行。便于复用打印纸。
+    if (/^\d+$/.test(text)) {
+        const blankRow = sampleRow.cloneNode(true)
+        blankRow.classList.add('opacity-0')
+        Array.from({ length: parseInt(text) }, () => addRow(blankRow.cloneNode(true)))
+
+        return
+    }
 
     const toAddMoreEmptyRows = /\+\d+$/.test(text)
     // 四行+2 => 四行
