@@ -1,10 +1,11 @@
 # 家庭教育
 
 ## 功能列表
-- 学前教育习题制作
+- 学前教育习题制作 ([demo](https://huangjian.github.io/FamilyEducation/Generator))
     - 汉字楷体描红
     - 四则运算
     - 英文字母描红
+- 小学生书法字帖制作 （田英章楷书）( [demo](https://huangjian.github.io/FamilyEducation/Generator/writing-book.html))
 
 ## [网页制成版练习集](https://huangjian.github.io/FamilyEducation/)
 
@@ -57,4 +58,4 @@
     - 四位数加减法、三位数乘一位数、四位数除一位数
     - 英语字母描红: Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn
 
-## [习题制作器网页](https://huangjian.github.io/FamilyEducation/Generator)
+- ... (一年级暑期停止使用，已累积至二十八章，索引略)
