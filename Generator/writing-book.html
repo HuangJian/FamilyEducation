@@ -1,0 +1,65 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Cache-Control" content="no-transform " />
+  <title>做题家 - 时习之</title>
+  <link rel="shortcut icon" type="image/ico" href="../assets/favicon.ico"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .box {
+      width: 64px;
+      height: 64px;
+      border: 1px solid #888;
+      border-radius: 2px;
+      position: relative;
+      font-family: 'Tianyingzhang-Kaishu';
+      font-size: 48px;
+    }
+    .box::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      border-top: 1px dashed #aaa;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .box::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      border-top: 1px dashed #aaa;
+      top: 50%;
+      transform: rotate(90deg);
+    }
+    .char {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      line-height: 64px;
+      z-index: 999;
+      color: #444;
+    }
+    .sample {
+      color: rgba(243, 147, 162, .7);
+    }
+    @font-face {
+      font-family: 'Tianyingzhang-Kaishu';
+      src: url('./tyz.woff2') format('truetype');
+    }
+  </style>
+</head>
+
+<body>
+  <div class="row flex max-w-2xl mx-auto mb-1 justify-between hidden">
+    <div class="box">
+      <div class="char"></div>
+    </div>
+  </div>
+</body>
+
+<script src="./writing-book.js"></script>
+
+</html>
