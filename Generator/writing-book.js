@@ -2,7 +2,8 @@ const sampleRow = document.querySelector('.row').cloneNode(true)
 sampleRow.classList.remove('hidden')
 const sampleBox = sampleRow.querySelector('.box')
 
-const words = '采桑 除草 割麦 打谷 积肥 锄草 葡萄 紫色 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
+document.querySelector('#words').value =
+    '采桑 除草 割麦 打谷 积肥 锄草 收获 葡萄 紫色 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
 
 const rowsPerPage = 16
 const maxColumns = 8
@@ -11,15 +12,16 @@ Array.from({ length: maxColumns }, () => {
     emptyRow.appendChild(sampleBox.cloneNode(true))
 })
 
-let rows = 0
-
 make()
 
 function make() {
-    rows = 0
-    words.split(/\s+/).forEach(word => {
-        printWord(word)
-    })
+    document.querySelector('#words').value.trim()
+        .split(/\s+/)
+        .forEach(printWord)
+}
+
+function doPrint() {
+    window.print()
 }
 
 function printWord(text) {
@@ -73,10 +75,5 @@ function printChars(chars, row, extraClass) {
 }
 
 function addRow(row) {
-    document.body.appendChild(row)
-    ++rows
-    if (rows >= rowsPerPage) {
-        row.classList.add('mt-8')
-        rows = 1
-    }
+    document.querySelector('#printable').appendChild(row)
 }
