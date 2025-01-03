@@ -1,0 +1,119 @@
+:root {
+  --box-size: 64px;
+  --font-size: calc(var(--box-size) * 0.75);
+  --pinyin-height: calc(var(--box-size) / 2);
+  --pinyin-color: rgb(74, 222, 128)
+}
+.word {
+  height: calc(var(--box-size) + var(--pinyin-height));
+}
+.box {
+  width: var(--box-size);
+  height: var(--box-size);
+  border: 1px solid var(--pinyin-color);
+  border-radius: 2px;
+  position: relative;
+  font-family: 'Tianyingzhang-Kaishu';
+  font-size: var(--font-size);
+  margin-top: var(--pinyin-height);
+}
+.box::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  border-top: 1px dashed var(--pinyin-color);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.box::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  border-top: 1px dashed var(--pinyin-color);
+  top: 50%;
+  transform: rotate(90deg);
+}
+.box+.box {
+  margin-left: -1px;
+}
+.char {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: var(--box-size);
+  z-index: 999;
+  color: #444;
+}
+.pinyin {
+  border: 0;
+  --pinyin-font-size: calc(var(--pinyin-height) - 10px);
+
+  color: var(--pinyin-color);
+  font-family: 'Mulish', sans-serif;
+  font-size: var(--pinyin-font-size);
+  line-height: var(--pinyin-font-size);
+  padding-top: calc((var(--box-size) - var(--pinyin-font-size)) / 2);
+  text-align: center;
+
+  position: absolute;
+  bottom: calc(100% + 12px);
+  width: 100%;
+}
+.qingyin {
+  background-color: lightcoral;
+}
+
+h2 {
+  position: relative;
+  /* display: block; */
+  span {
+    position: absolute;
+    top: -150%;
+    display: block;
+    background: #fff;
+  }
+}
+
+.sheet {
+  /* A4 paper size: 2480px x 3508px */
+  width: calc(90vh * 2480 / 3508);
+  height: 90vh;
+  border: 1px dashed #5190da;
+  margin: 8px 0;
+  padding: 2px;
+}
+@font-face {
+  font-family: 'Tianyingzhang-Kaishu';
+  src: url('./tyz.woff2') format('truetype');
+}
+@font-face {
+  font-family: 'Mulish';
+  src: url('./Mulish-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media print {
+  :root {
+    --box-size: 64px !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0.2in 0.8in; /* Adjust page margin for A4 paper */
+  }
+  #input,
+  #screen {
+    display: none;
+  }
+  /* #printable {
+    display: flex;
+  } */
+  .article {
+    break-inside: avoid; /* Modern property */
+    -webkit-column-break-inside: avoid; /* For WebKit browsers */
+    page-break-inside: avoid; /* Fallback for older browsers */
+  }
+
+}

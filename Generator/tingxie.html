@@ -1,0 +1,49 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Cache-Control" content="no-transform " />
+  <title>听写本 - 时习之</title>
+  <link rel="shortcut icon" type="image/ico" href="../assets/favicon.ico"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex">
+  <form id="input" class="space-y-4 text-gray-700 container w-1/4 px-2 my-2 hidden">
+    <textarea id="words" rows="4"
+              class="w-full h-40 px-3 py-2 text-base text-gray-700 placeholder-gray-600
+                     border rounded-lg focus:shadow-outline">
+    </textarea>
+    <div>
+      <button class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg
+                     focus:shadow-outline hover:bg-green-800"
+              onclick="make()" type="button">制作</button>
+      <button class="h-10 px-5 m-2 text-purple-100 transition-colors duration-150 bg-purple-700 rounded-lg
+                     focus:shadow-outline hover:bg-purple-800"
+              onclick="doPrint()" type="button">打印</button>
+    </div>
+  </form>
+  <section id="screen" class="w-3/4 mx-4 hidden">
+  </section>
+  <section id="printable" class="w-full flex-col flex hidden">
+  </section>
+  <div class="article flex flex-wrap justify-start hidden">
+    <div class="word flex mb-4 mr-8">
+      <div class="box">
+        <div class="pinyin">
+          <span></span>
+        </div>
+        <div class="char"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<h2 class="mb-4 w-full text-center text-green-900 border-b-2 border-green-200 pb-1 px-2 hidden">
+  <span class="ml-4 px-3"></span>
+</h2>
+
+<link rel="stylesheet" href="tingxie.css">
+<script src="./tingxie.js"></script>
+
+</html>
