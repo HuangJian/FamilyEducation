@@ -71,32 +71,43 @@ function printWord(text) {
       parseInt(/\+(\d+)$/.exec(text)[1]) + setting.extraRows
     : setting.extraRows
 
+  const sampleBoxType = document.querySelector('#sample-box-type').value
+  const extraRowBoxType = document.querySelector('#extra-row-box-type').value
   const chars = word.split('')
-  printChars(chars, row)
+  printChars(chars, row, [sampleBoxType])
 
   Array.from({ length: setting.sample }, () => {
     Array.from({ length: setting.split }, () => {
-      row.appendChild(sampleBox.cloneNode(true))
+      const split = sampleBox.cloneNode(true)
+      split.classList.add(sampleBoxType)
+      row.appendChild(split)
     })
 
-    printChars(chars, row, 'sample')
+    printChars(chars, row, ['sample', sampleBoxType])
   })
+  const boxType = setting.size === 1 ? extraRowBoxType : sampleBoxType
   Array.from({ length: maxColumns - row.childNodes.length }, () => {
-    row.appendChild(sampleBox.cloneNode(true))
+    const box = sampleBox.cloneNode(true)
+    box.classList.add(boxType)
+    row.appendChild(box)
   })
   addRow(row)
 
-  Array.from({ length: extraRows }, () => addRow(emptyRow.cloneNode(true)))
+  Array.from({ length: extraRows }, () => {
+    const extraRow = emptyRow.cloneNode(true)
+    extraRow.querySelectorAll('.box')
+      .forEach((box) => box.classList.add(extraRowBoxType))
+    addRow(extraRow)
+  })
 }
 
-function printChars(chars, row, extraClass) {
+function printChars(chars, row, extraClassList) {
   chars.forEach((it) => {
     const box = sampleBox.cloneNode(true)
     const char = box.querySelector('.char')
     char.innerHTML = it
-    if (extraClass) {
-      char.classList.add(extraClass)
-    }
+
+    ;(extraClassList || []).forEach(c => box.classList.add(c))
 
     row.appendChild(box)
   })

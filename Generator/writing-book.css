@@ -12,22 +12,36 @@
   font-family: 'Tianyingzhang-Kaishu';
   font-size: var(--font-size);
 }
-.box::before {
+/* 田字格 */
+.tian.box::before,
+.tian.box::after,
+.mi.box::before,
+.mi.box::after,
+.mi.box .char::before,
+.mi.box .char::after {
   content: '';
   position: absolute;
   width: 100%;
   border-top: 1px dashed #aaa;
   top: 50%;
-  transform: translateY(-50%);
+  z-index: -1;
 }
-.box::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  border-top: 1px dashed #aaa;
-  top: 50%;
+.tian.box::after,
+.mi.box::after {
   transform: rotate(90deg);
 }
+/* 米字格 */
+.mi.box .char::before {
+  transform: rotate(45deg);
+  width: 140%;
+  left: -21%;
+}
+.mi.box .char::after {
+  transform: rotate(-45deg);
+  width: 140%;
+  left: -21%;
+}
+
 .char {
   position: relative;
   width: 100%;
@@ -37,7 +51,7 @@
   z-index: 999;
   color: #444;
 }
-.sample {
+.sample .char {
   color: rgba(243, 147, 162, 0.7);
 }
 .pinyin {

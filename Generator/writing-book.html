@@ -23,6 +23,22 @@
                      focus:shadow-outline hover:bg-purple-800"
               onclick="doPrint()" type="button">打印</button>
     </div>
+    <div class="flex flex-wrap">
+      <div class="flex w-1/2 px-2">
+        <select id="sample-box-type" class="h-10 px-3 w-full xxtext-base placeholder-gray-600 border rounded-lg focus:shadow-outline">
+          <option value="tian" checked>描红 - 田字格</option>
+          <option value="mi">描红 - 米字格</option>
+          <option value="empty">描红 - 大方格</option>
+        </select>
+      </div>
+      <div class="flex w-1/2 px-2">
+        <select id="extra-row-box-type" class="h-10 px-3 w-full xxtext-base placeholder-gray-600 border rounded-lg focus:shadow-outline">
+          <option value="tian">抄写 - 田字格</option>
+          <option value="mi">抄写 - 米字格</option>
+          <option value="empty" checked>抄写 - 大方格</option>
+        </select>
+      </div>
+    </div>
   </form>
   <section id="screen" class="flex-1 h-screen flex mx-4 flex-wrap justify-between">
   </section>
