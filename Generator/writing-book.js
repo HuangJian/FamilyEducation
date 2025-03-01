@@ -39,6 +39,12 @@ function htmlToElement(html) {
 }
 
 function printWord(text) {
+  // 如果长度大于 10 ，判断为长句子，按长句子规则打印
+  if (text.length > 10) {
+    printLongSentence(text)
+    return
+  }
+
   const row = sampleRow.cloneNode(false)
 
   // 纯数字，则增加几个空白行。便于复用打印纸。
@@ -95,9 +101,81 @@ function printWord(text) {
 
   Array.from({ length: extraRows }, () => {
     const extraRow = emptyRow.cloneNode(true)
-    extraRow.querySelectorAll('.box')
+    extraRow
+      .querySelectorAll('.box')
       .forEach((box) => box.classList.add(extraRowBoxType))
     addRow(extraRow)
+  })
+}
+
+// 长句子打印函数。先合并标点到前一个汉字的 token，再在打印时分离处理
+function printLongSentence(text) {
+  const maxCells = maxColumns
+  const sampleBoxType = document.querySelector('#sample-box-type').value
+  const extraRowBoxType = document.querySelector('#extra-row-box-type').value
+
+  // 预处理：合并标点到前一个 token
+  const rawTokens = text.split('')
+  const tokens = []
+  rawTokens.forEach((ch) => {
+    if (/[，。！？；、：“”‘’（）《》]/.test(ch)) {
+      if (tokens.length > 0) {
+        tokens[tokens.length - 1] += ch
+      } else {
+        tokens.push(ch)
+      }
+    } else {
+      tokens.push(ch)
+    }
+  })
+
+  // 分组：每组占满一行
+  const groups = []
+  for (let i = 0; i < tokens.length; i += maxCells) {
+    let group = tokens.slice(i, i + maxCells)
+    while (group.length < maxCells) {
+      group.push('')
+    }
+    groups.push(group)
+  }
+
+  // 每组打印两行：第一行为描红格子，第二行为留空仿写
+  groups.forEach((group) => {
+    // 描红行
+    const printRow = sampleRow.cloneNode(false)
+    printRow.classList.add('sample')
+    group.forEach((token) => {
+      const box = sampleBox.cloneNode(true)
+      const charEl = box.querySelector('.char')
+      if (token !== '') {
+        const punctuationMatch = token.match(/[，。！？；、：“”‘’（）《》]+/)
+        if (punctuationMatch) {
+          const mainText = token.replace(punctuationMatch[0], '')
+          charEl.innerHTML = mainText
+          // Wrap punctuation in a span element to style separately
+          const puncSpan = document.createElement('span')
+          puncSpan.classList.add('punc')
+          puncSpan.innerHTML = punctuationMatch[0]
+          charEl.appendChild(puncSpan)
+        } else {
+          charEl.innerHTML = token
+        }
+      }
+      box.classList.add(sampleBoxType)
+      printRow.appendChild(box)
+    })
+    addRow(printRow)
+
+    // 仿写行（格子内不显示任何文字）
+    const imitationRow = sampleRow.cloneNode(false)
+    group.forEach(() => {
+      const box = sampleBox.cloneNode(true)
+      const charEl = box.querySelector('.char')
+      charEl.innerHTML = ''
+      box.classList.add(extraRowBoxType)
+      imitationRow.appendChild(box)
+    })
+    addRow(imitationRow)
   })
 }
 
@@ -106,8 +184,7 @@ function printChars(chars, row, extraClassList) {
     const box = sampleBox.cloneNode(true)
     const char = box.querySelector('.char')
     char.innerHTML = it
-
-    ;(extraClassList || []).forEach(c => box.classList.add(c))
+    ;(extraClassList || []).forEach((c) => box.classList.add(c))
 
     row.appendChild(box)
   })
