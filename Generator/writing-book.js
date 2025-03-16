@@ -6,6 +6,9 @@ const samplePinyinBox = document.querySelector('.row .pinyin')
 document.querySelector('#words').value =
   '2 chuǎng闯荡世界 gē+mài+割麦 打谷 积肥 锄草 勇往直前 笑眯眯 狐狸 笨蛋 酸菜 己 所 不 欲 勿 施 于 人'
 
+const regexPunctuation = /[，,。！!？?；、：:（）()《》]/
+const regexPunctuationWithQuotes = /[，,。！！？?；、：:（）()《》“”‘’"']/
+
 const rowsPerSheet = 16
 const maxColumns = 8
 const emptyRow = sampleRow.cloneNode(false)
@@ -117,24 +120,36 @@ function printLongSentence(text) {
   // 预处理：合并标点到前一个 token
   const rawTokens = text.split('')
   const tokens = []
-  rawTokens.forEach((ch) => {
-    if (/[，。！？；、：“”‘’（）《》]/.test(ch)) {
-      if (tokens.length > 0) {
-        tokens[tokens.length - 1] += ch
-      } else {
-        tokens.push(ch)
+  for (let i = 0; i < rawTokens.length; i++) {
+    const token = rawTokens[i]
+    if (/[“”‘’"']/.test(token)) {
+      // 处理引号与其它符号组合，需要独占一格的情况
+      if (i < rawTokens.length - 1 && regexPunctuation.test(rawTokens[i + 1])) {
+        tokens.push(token + rawTokens[i + 1])
+        i++
+        continue
       }
-    } else {
-      tokens.push(ch)
+      if (i > 0 && regexPunctuation.test(rawTokens[i - 1])) {
+        const lastToken = tokens[tokens.length - 1]
+        tokens[tokens.length - 1] = lastToken[0]
+        tokens.push(lastToken[1] + token)
+        continue
+      }
     }
-  })
+
+    if (regexPunctuation.test(token)) {
+      tokens[tokens.length - 1] += token
+    } else {
+      tokens.push(token)
+    }
+  }
 
   // 分组：每组占满一行
   const groups = []
   for (let i = 0; i < tokens.length; i += maxCells) {
     let group = tokens.slice(i, i + maxCells)
     while (group.length < maxCells) {
-      group.push('')
+      group.push(' ')
     }
     groups.push(group)
   }
@@ -147,19 +162,23 @@ function printLongSentence(text) {
     group.forEach((token) => {
       const box = sampleBox.cloneNode(true)
       const charEl = box.querySelector('.char')
-      if (token !== '') {
-        const punctuationMatch = token.match(/[，。！？；、：“”‘’（）《》]+/)
-        if (punctuationMatch) {
-          const mainText = token.replace(punctuationMatch[0], '')
-          charEl.innerHTML = mainText
-          // Wrap punctuation in a span element to style separately
-          const puncSpan = document.createElement('span')
-          puncSpan.classList.add('punc')
-          puncSpan.innerHTML = punctuationMatch[0]
-          charEl.appendChild(puncSpan)
-        } else {
-          charEl.innerHTML = token
-        }
+      if (token.length === 1) {
+        // 单独汉字，独占一格
+        charEl.innerHTML = token
+      } else if (
+        regexPunctuationWithQuotes.test(token[0]) &&
+        regexPunctuationWithQuotes.test(token[1])
+      ) {
+        // 组合符号，独占一格
+        charEl.innerHTML = token
+        charEl.classList.add('punc')
+      } else {
+        // 汉字带符号
+        charEl.innerHTML = token[0]
+        const puncSpan = document.createElement('span')
+        puncSpan.classList.add('punc')
+        puncSpan.innerHTML = token[1]
+        charEl.appendChild(puncSpan)
       }
       box.classList.add(sampleBoxType)
       printRow.appendChild(box)

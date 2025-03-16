@@ -51,20 +51,28 @@
   z-index: 999;
   color: #444;
 }
+.punc {
+  font-family: 'PingFang SC', STXihei, SimSun, FangSong, 'Courier New', Courier,
+    monospace;
+}
+.char.punc {
+  font-size: calc(var(--box-size) * 0.6);
+}
 .char .punc {
   position: absolute;
   top: 0;
   left: 100%;
-  width: 100%;
+  width: 30%;
   height: 100%;
   text-align: center;
   line-height: var(--box-size);
   color: #444;
 }
-.box:last-child .punc {
-  left: 60%;
+.box:last-child .char .punc {
+  left: 70%;
 }
-.sample .char, .sample .punc {
+.sample .char,
+.sample .punc {
   color: rgba(243, 147, 162, 0.7);
 }
 .pinyin {
