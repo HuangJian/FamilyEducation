@@ -118,27 +118,32 @@ function printLongSentence(text) {
   const extraRowBoxType = document.querySelector('#extra-row-box-type').value
 
   // 预处理：合并标点到前一个 token
-  const rawTokens = text.split('')
+  const rawTokens = Array.from(text)
   const tokens = []
   for (let i = 0; i < rawTokens.length; i++) {
     const token = rawTokens[i]
-    if (/[“”‘’"']/.test(token)) {
-      // 处理引号与其它符号组合，需要独占一格的情况
-      if (i < rawTokens.length - 1 && regexPunctuation.test(rawTokens[i + 1])) {
-        tokens.push(token + rawTokens[i + 1])
-        i++
-        continue
-      }
-      if (i > 0 && regexPunctuation.test(rawTokens[i - 1])) {
-        const lastToken = tokens[tokens.length - 1]
-        tokens[tokens.length - 1] = lastToken[0]
-        tokens.push(lastToken[1] + token)
-        continue
-      }
+    const lastToken = tokens[tokens.length - 1]
+    if (i > 0 && /[“‘”’"']/.test(token) && lastToken.length > 1) {
+      // 引号合并到前一个标点，独占一格
+      tokens[tokens.length - 1] = lastToken[0]
+      tokens.push(lastToken[1] + token)
+      continue
+    } else if (i < rawTokens.length - 1 && /[“‘]/.test(token)) {
+      // 左引号合并到后一个字符
+      tokens.push(token + rawTokens[i + 1])
+      i++
+      continue
     }
 
-    if (regexPunctuation.test(token)) {
-      tokens[tokens.length - 1] += token
+    if (regexPunctuationWithQuotes.test(token)) {
+      if (lastToken.length > 1) {
+        // 前一个 token 带标点，拿回来组合符号独占一格
+        tokens[tokens.length - 1] = lastToken[0]
+        tokens.push(lastToken[1] + token)
+      } else {
+        // 前一个 token 不带标点，直接合并
+        tokens[tokens.length - 1] += token
+      }
     } else {
       tokens.push(token)
     }
@@ -174,10 +179,16 @@ function printLongSentence(text) {
         charEl.classList.add('punc')
       } else {
         // 汉字带符号
-        charEl.innerHTML = token[0]
+        const isPuncAtLeft = regexPunctuationWithQuotes.test(token[0])
+        const punc = isPuncAtLeft ? token[0] : token[1]
+        const char = isPuncAtLeft ? token[1] : token[0]
+        charEl.innerHTML = char
         const puncSpan = document.createElement('span')
         puncSpan.classList.add('punc')
-        puncSpan.innerHTML = token[1]
+        if (isPuncAtLeft) {
+          puncSpan.classList.add('left')
+        }
+        puncSpan.innerHTML = punc
         charEl.appendChild(puncSpan)
       }
       box.classList.add(sampleBoxType)
