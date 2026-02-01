@@ -70,24 +70,19 @@
       <div>
         <button class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-700 rounded-lg
                        focus:shadow-outline hover:bg-blue-800"
-                onclick="randomizeCalculations()" type="button">随机生成计算题</button>
-      </div>
-      <div>
+                onclick="randomizeCalculations()" type="button">随机出题</button>
         <button class="h-10 px-5 m-2 text-green-100 transition-colors duration-150 bg-green-700 rounded-lg
                        focus:shadow-outline hover:bg-green-800"
                 onclick="make()" type="button">制作习题</button>
+        <button class="h-10 px-5 m-2 text-purple-100 transition-colors duration-150 bg-purple-700 rounded-lg
+                     focus:shadow-outline hover:bg-purple-800"
+                onclick="window.print()" type="button">打印</button>
         <button class="h-10 px-5 m-2 text-purple-100 transition-colors duration-150 bg-purple-700 rounded-lg
                        focus:shadow-outline hover:bg-purple-800"
                 onclick="copyHtmlSource()" type="button">copy html source</button>
       </div>
       <div>
-        <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg
-                       focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-                onclick="toggleStrokeNames()" type="button">显示／隐藏笔顺</button>
-        <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg
-                       focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-                onclick="show()" type="button">显示偏旁</button>
-        <button class="h-10 px-5 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg
+        <button class="h-10 px-5 m-2 text-indigo-700 transition-colors duration-150 border border-indigo-500 rounded-lg
                        focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
                 onclick="toggleMathAnswersVisibility()" type="button">显示／隐藏答案</button>
       </div>
@@ -102,9 +97,9 @@
 
   <section id="output" class="w-2/3 h-screen overflow-y-scroll p-1">
     <div id="math" class="flex flex-col max-w-2xl mx-auto"></div>
-    <hr class="my-4">
+    <hr class="my-2">
     <div id="char" class="flex flex-col max-w-2xl mx-auto"></div>
-    <hr class="my-4">
+    <hr class="my-2">
     <div id="english" class="flex flex-col max-w-2xl mx-auto"></div>
   </section>
 </body>
@@ -220,5 +215,29 @@
   .letter {
       height: 67%;
   }
+</style>
+<style>
+  @media print {
+    @page {
+      size: A4;
+      margin: 0.1in; /* Adjust page margin for A4 paper */
+    }
+    form {
+      display: none;
+    }
+
+    #output {
+      max-width: none!important;
+      width: 100%!important;
+      height: auto!important;
+      padding: 0 12px!important;
+    }
+    #math, #char, #english {
+      max-width: none!important;
+      width: 100%!important;
+      margin: 0!important;
+    }
+  }
+
 </style>
 </html>
