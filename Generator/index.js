@@ -76,6 +76,10 @@ function make() {
 
 function makeEnglish() {
   const words = $('#english-to-practise').value
+  if (!words || words.length === 0) {
+    $('#char + hr').classList.add('hidden')
+    return
+  }
 
   const line = words.split(' ')
     .map(word => {
@@ -103,6 +107,7 @@ function makeEnglish() {
       ...Array.from({ length: $('#dotted-rows').value }, () => dottedLineHtml),
     ]
     $('#english').innerHTML = rows.join('\n')
+    $('#char + hr').classList.remove('hidden')
 }
 
 $('#calculations').value = `
@@ -116,7 +121,7 @@ $('#calculations').value = `
 
 // 处理复制粘贴时的格式错乱
 function fixCalculationsFormat() {
-  const content = ($('#calculations').value || [])
+  const content = ($('#calculations').value || '')
     .split('\n')
     .map(line => line.trim())
     .join('\n')
@@ -126,8 +131,13 @@ function fixCalculationsFormat() {
 
 function makeMaths() {
   const content = fixCalculationsFormat()
-  answers = calcMathAnswers()
+  if (content.length === 0) {
+    $('#math').innerHTML = ''
+    $('#math + hr').classList.add('hidden')
+    return
+  }
 
+  answers = calcMathAnswers()
   $('#math').innerHTML = `
     <code class="hidden">${content}</code>
     <code class="hidden" id="answers">${answers.join(',')}</code>
@@ -138,6 +148,7 @@ function makeMaths() {
         .join('')
     }
   `
+    $('#math + hr').classList.remove('hidden')
 }
 
 // '83*7=?,9*48=?,774*4=?' => <div class="question flex-1">xxx</div>
@@ -175,7 +186,7 @@ function convertQuestionToHtml(question) {
  */
 function makeChars() {
   const char = $('#char-to-practise').value
-  if (!char) return
+  if (!char || char.length === 0) return
 
   const reqData = char.split('')
     .map(it => fetch(`../cnchar-data/draw/${it}.json`).then(res => res.text()))
