@@ -78,6 +78,7 @@ function makeEnglish() {
   const words = $('#english-to-practise').value
   if (!words || words.length === 0) {
     $('#char + hr').classList.add('hidden')
+    $('#english').innerHTML = ''
     return
   }
 
@@ -186,7 +187,10 @@ function convertQuestionToHtml(question) {
  */
 function makeChars() {
   const char = $('#char-to-practise').value
-  if (!char || char.length === 0) return
+  if (!char || char.length === 0) {
+    $('#char').innerHTML = ''
+    return
+  }
 
   const reqData = char.split('')
     .map(it => fetch(`../cnchar-data/draw/${it}.json`).then(res => res.text()))
@@ -263,7 +267,12 @@ function layoutChar() {
 const scriptToDisplayAnswers = `
   document.addEventListener('keydown', evt => {
     if (evt.code === 'ControlLeft') {
-      let isAnswerVisible = document.querySelector('.box').innerText !== ''
+      const isMathAnswersAvailable = document.querySelector('#answers') !== null
+      if (!isMathAnswersAvailable) {
+        return
+      }
+
+      const isAnswerVisible = document.querySelector('.box').innerText !== ''
       const answers = document.querySelector('#answers').textContent.split(',')
       document.querySelectorAll('.box')
         .forEach((box, idx) => box.innerText = isAnswerVisible ? '' : answers[idx])
