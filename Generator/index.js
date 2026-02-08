@@ -245,7 +245,7 @@ function layoutChar() {
     const container = htmlToElement('<div class="write-them-down flex w-100 justify-between"></div>')
     char.parentElement.prepend(container)
 
-    const sample = htmlToElement('<div class="flex scale-[0.6] origin-left w-fit sample"></div>')
+    const sample = htmlToElement('<div class="flex origin-left w-fit sample"></div>')
     char.parentElement.prepend(sample)
 
     const id = `char${idx}`
